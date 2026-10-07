@@ -1,0 +1,426 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Urbanshop · Flujo de compra del usuario",
+    "quality_profile": "showcase",
+    "output": ".archify/workflow-compra-usuario-20261007-183157/compra-usuario.html",
+    "repository": {
+      "url": "https://github.com/Rafael088/urbanshop",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "20894de5d520c29b2a6d4536c5898166848fd1b4"
+    },
+    "viewBox": [
+      1240,
+      786
+    ]
+  },
+  "lanes": [
+    {
+      "id": "front",
+      "label": "Next.js Frontend"
+    },
+    {
+      "id": "back",
+      "label": "API Routes"
+    },
+    {
+      "id": "mp",
+      "label": "Mercado Pago"
+    },
+    {
+      "id": "cliente",
+      "label": "Cliente"
+    },
+    {
+      "id": "datos",
+      "label": "Estado y persistencia"
+    }
+  ],
+  "phases": [
+    {
+      "id": "explorar",
+      "label": "Explorar",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "elegir",
+      "label": "Elegir variante",
+      "fromCol": 2,
+      "toCol": 2
+    },
+    {
+      "id": "carrito",
+      "label": "Carrito",
+      "fromCol": 3,
+      "toCol": 3
+    },
+    {
+      "id": "pagar",
+      "label": "Checkout + pago",
+      "fromCol": 4,
+      "toCol": 4,
+      "variant": "emphasis"
+    },
+    {
+      "id": "confirmar",
+      "label": "Confirmación",
+      "fromCol": 5,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "mainPath": [
+    "navega",
+    "home",
+    "detalle",
+    "carrito",
+    "checkout",
+    "orders",
+    "mp_pago"
+  ],
+  "nodes": [
+    {
+      "id": "navega",
+      "lane": "cliente",
+      "col": 0,
+      "type": "external",
+      "label": "Visita la tienda",
+      "sublabel": "busca ropa urbana",
+      "sources": [
+        {
+          "path": "TAREAS.md",
+          "line": 10,
+          "label": "Semana 1 · home"
+        }
+      ],
+      "width": 132
+    },
+    {
+      "id": "paga",
+      "lane": "cliente",
+      "col": 4,
+      "type": "external",
+      "label": "Paga en MP",
+      "sublabel": "tarjeta o PSE",
+      "sources": [
+        {
+          "path": "AGENTS.md",
+          "line": 8,
+          "label": "Checkout Pro"
+        }
+      ],
+      "width": 132
+    },
+    {
+      "id": "home",
+      "lane": "front",
+      "col": 1,
+      "type": "frontend",
+      "label": "Home · ProductGrid",
+      "sublabel": "grid de productos",
+      "tag": "en TAREAS",
+      "sources": [
+        {
+          "path": "src/app/api/productos/route.ts",
+          "line": 8,
+          "end_line": 14,
+          "label": "GET /api/productos"
+        },
+        {
+          "path": "TAREAS.md",
+          "line": 10
+        }
+      ],
+      "width": 132
+    },
+    {
+      "id": "detalle",
+      "lane": "front",
+      "col": 2,
+      "type": "frontend",
+      "label": "Detalle producto",
+      "sublabel": "talla · color · stock",
+      "tag": "en TAREAS",
+      "sources": [
+        {
+          "path": "src/types/index.ts",
+          "line": 9,
+          "end_line": 15,
+          "label": "IVariante"
+        },
+        {
+          "path": "TAREAS.md",
+          "line": 11
+        }
+      ],
+      "width": 132
+    },
+    {
+      "id": "carrito",
+      "lane": "front",
+      "col": 3,
+      "type": "frontend",
+      "label": "Carrito /carrito",
+      "sublabel": "cantidad · total",
+      "tag": "en TAREAS",
+      "sources": [
+        {
+          "path": "src/lib/cart.ts",
+          "line": 20,
+          "end_line": 33,
+          "label": "agregarItem()"
+        },
+        {
+          "path": "src/lib/cart.ts",
+          "line": 57,
+          "end_line": 59,
+          "label": "calcularTotalCarrito()"
+        }
+      ],
+      "width": 132
+    },
+    {
+      "id": "checkout",
+      "lane": "front",
+      "col": 4,
+      "type": "frontend",
+      "label": "Checkout",
+      "sublabel": "formulario IOrden",
+      "tag": "en TAREAS",
+      "sources": [
+        {
+          "path": "src/types/index.ts",
+          "line": 46,
+          "end_line": 55,
+          "label": "IOrden"
+        },
+        {
+          "path": "TAREAS.md",
+          "line": 17
+        }
+      ],
+      "width": 132
+    },
+    {
+      "id": "confirmacion",
+      "lane": "front",
+      "col": 5,
+      "type": "frontend",
+      "label": "Confirmación",
+      "sublabel": "estado PAGADA",
+      "sources": [
+        {
+          "path": "TAREAS.md",
+          "line": 21
+        }
+      ],
+      "width": 132
+    },
+    {
+      "id": "orders",
+      "lane": "back",
+      "col": 4,
+      "type": "backend",
+      "label": "POST /api/orders",
+      "sublabel": "Orden PENDIENTE",
+      "tag": "en TAREAS",
+      "sources": [
+        {
+          "path": "prisma/schema.prisma",
+          "line": 51,
+          "end_line": 60,
+          "label": "Orden · estado"
+        },
+        {
+          "path": "TAREAS.md",
+          "line": 32
+        }
+      ],
+      "width": 132
+    },
+    {
+      "id": "webhook",
+      "lane": "back",
+      "col": 5,
+      "type": "security",
+      "label": "POST /api/webhooks",
+      "sublabel": "verifica el pago",
+      "tag": "en TAREAS",
+      "sources": [
+        {
+          "path": "TAREAS.md",
+          "line": 34
+        },
+        {
+          "path": "prisma/schema.prisma",
+          "line": 63,
+          "end_line": 64,
+          "label": "mpPaymentId · mpStatus"
+        }
+      ],
+      "width": 132
+    },
+    {
+      "id": "mp_pago",
+      "lane": "mp",
+      "col": 4,
+      "type": "cloud",
+      "label": "Checkout Pro",
+      "sublabel": "preferencia de pago",
+      "sources": [
+        {
+          "path": "prisma/schema.prisma",
+          "line": 65,
+          "label": "mpPreferenceId"
+        },
+        {
+          "path": "TAREAS.md",
+          "line": 20
+        }
+      ],
+      "width": 132
+    },
+    {
+      "id": "ls",
+      "lane": "datos",
+      "col": 3,
+      "type": "database",
+      "label": "localStorage",
+      "sublabel": "ecommerce-cart",
+      "sources": [
+        {
+          "path": "src/lib/cart.ts",
+          "line": 3,
+          "label": "CART_KEY"
+        },
+        {
+          "path": "AGENTS.md",
+          "line": 10
+        }
+      ],
+      "width": 132
+    },
+    {
+      "id": "db",
+      "lane": "datos",
+      "col": 5,
+      "type": "database",
+      "label": "PostgreSQL · Prisma",
+      "sublabel": "Supabase",
+      "sources": [
+        {
+          "path": "prisma/schema.prisma",
+          "line": 5,
+          "end_line": 8,
+          "label": "datasource"
+        },
+        {
+          "path": "src/lib/prisma.ts",
+          "label": "client singleton"
+        }
+      ],
+      "width": 132
+    }
+  ],
+  "edges": [
+    {
+      "id": "navega-home",
+      "from": "navega",
+      "to": "home",
+      "label": "navega"
+    },
+    {
+      "id": "home-detalle",
+      "from": "home",
+      "to": "detalle",
+      "label": "elige producto"
+    },
+    {
+      "id": "detalle-carrito",
+      "from": "detalle",
+      "to": "carrito",
+      "label": "agregarItem()"
+    },
+    {
+      "id": "carrito-ls",
+      "from": "carrito",
+      "to": "ls",
+      "label": "guardar",
+      "variant": "dashed"
+    },
+    {
+      "id": "carrito-checkout",
+      "from": "carrito",
+      "to": "checkout",
+      "label": "ir a pagar"
+    },
+    {
+      "id": "checkout-orders",
+      "from": "checkout",
+      "to": "orders",
+      "label": "POST /api/orders",
+      "variant": "emphasis"
+    },
+    {
+      "id": "orders-mp",
+      "from": "orders",
+      "to": "mp_pago",
+      "label": "crear preferencia",
+      "variant": "emphasis"
+    },
+    {
+      "id": "paga-mp",
+      "from": "paga",
+      "to": "mp_pago",
+      "label": "paga"
+    },
+    {
+      "id": "mp-webhook",
+      "from": "mp_pago",
+      "to": "webhook",
+      "label": "notifica pago",
+      "variant": "dashed",
+      "role": "async",
+      "fromSide": "right",
+      "toSide": "right",
+      "route": "outside-right"
+    },
+    {
+      "id": "webhook-confirm",
+      "from": "webhook",
+      "to": "confirmacion",
+      "label": "estado PAGADA",
+      "variant": "emphasis"
+    },
+    {
+      "id": "webhook-db",
+      "from": "webhook",
+      "to": "db",
+      "label": "baja stock",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Qué existe ya en el repo",
+      "items": [
+        "src/lib/cart.ts: agregarItem(), quitarItem(), calcularTotalCarrito()",
+        "GET /api/productos con Prisma (categoria + variantes)",
+        "ProductCard.tsx y el esquema Orden con estado PENDIENTE y campos de Mercado Pago"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Qué falta por construir (TAREAS.md)",
+      "items": [
+        "Frontend: ProductGrid, /productos/[id], /carrito, /checkout, confirmación",
+        "Backend: POST /api/orders, /api/mercado-pago, /api/webhooks",
+        "Semana 3: baja de stock tras el pago y email de Resend"
+      ]
+    }
+  ]
+}

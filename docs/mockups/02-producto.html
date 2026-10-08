@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Urbanshop · Detalle de producto (maqueta)</title>
+<link rel="stylesheet" href="_sistema.css">
+<style>
+  .detalle { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; padding: 48px 40px 64px; }
+  .migaja { font-family: var(--fuente-mono); font-size: 12px; letter-spacing: .1em; color: var(--tinta-suave); padding: 22px 40px 0; }
+  .migaja b { color: var(--tinta); }
+  .galeria { display: grid; gap: 16px; }
+  .plato-principal {
+    aspect-ratio: 1/1; border: 1px solid var(--borde-papel); position: relative;
+    background: repeating-radial-gradient(circle at 50% 50%, rgba(27,26,23,.06) 0 1px, transparent 1px 9px), var(--papel-hondo);
+    display: grid; place-items: center;
+  }
+  .plato-principal .grabado {
+    font-weight: 900; font-variation-settings: 'wdth' 125; font-size: 74px;
+    line-height: .9; text-transform: uppercase; letter-spacing: -.02em; text-align: center;
+  }
+  .plato-principal .surco-vivo {
+    position: absolute; inset: auto 0 -3px 0; height: 46px;
+    background: var(--prensa); display: flex; align-items: center; justify-content: space-between;
+    padding: 0 18px; color: var(--papel);
+    font-family: var(--fuente-mono); font-size: 12px; font-weight: 700; letter-spacing: .16em;
+  }
+  .miniaturas { display: flex; gap: 12px; }
+  .mini {
+    width: 84px; height: 84px; border: 1px solid var(--borde-papel);
+    background: var(--papel-hondo); display: grid; place-items: center; cursor: pointer;
+    font-family: var(--fuente-mono); font-size: 10px; letter-spacing: .08em; color: var(--tinta-suave);
+  }
+  .mini.sel { outline: 2px solid var(--tinta); outline-offset: 2px; }
+  .info h1 { font-size: 46px; font-weight: 900; font-variation-settings: 'wdth' 112; letter-spacing: -.018em; line-height: 1; }
+  .precio-fila {
+    display: flex; align-items: baseline; justify-content: space-between;
+    border-bottom: 2px solid var(--tinta); padding: 18px 0; margin: 20px 0 26px;
+  }
+  .precio-fila .p { font-family: var(--fuente-mono); font-weight: 800; font-size: 30px; }
+  .precio-fila .cat { font-family: var(--fuente-mono); font-size: 12px; letter-spacing: .12em; color: var(--tinta-suave); }
+  .grupo { margin-bottom: 26px; }
+  .grupo .etiqueta-bloque {
+    font-family: var(--fuente-mono); font-size: 12px; font-weight: 700; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--tinta-suave);
+    display: flex; justify-content: space-between; margin-bottom: 12px;
+  }
+  .grupo .etiqueta-bloque b { color: var(--tinta); font-weight: 700; }
+  .pasta { display: flex; gap: 10px; }
+  .size {
+    min-width: 58px; height: 58px; border: 1px solid var(--tinta); background: var(--papel);
+    font-weight: 800; font-size: 17px; display: grid; place-items: center; cursor: pointer; position: relative;
+  }
+  .size:hover { background: var(--papel-hondo); }
+  .size.sel { background: var(--tinta); color: var(--papel); }
+  .size.agotado { color: #A79D88; border-color: var(--borde-papel); cursor: not-allowed; }
+  .size.agotado::after { content: ''; position: absolute; left: 8px; right: 8px; top: 50%; height: 1px; background: #A79D88; transform: rotate(-18deg); }
+  .color-pastilla {
+    display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px;
+    border: 1px solid var(--tinta); background: var(--papel);
+    font-family: var(--fuente-mono); font-size: 12px; font-weight: 600; letter-spacing: .1em; cursor: pointer;
+  }
+  .color-pastilla .punto { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--tinta); }
+  .color-pastilla.sel { background: var(--tinta); color: var(--papel); }
+  .compra { display: flex; gap: 12px; margin: 30px 0 26px; }
+  .stepper { display: flex; border: 1px solid var(--tinta); }
+  .stepper button { width: 46px; border: 0; background: var(--papel); font-size: 20px; font-weight: 800; cursor: pointer; font-family: var(--fuente-display); }
+  .stepper .q { width: 58px; display: grid; place-items: center; font-family: var(--fuente-mono); font-weight: 700; font-size: 16px; border-left: 1px solid var(--tinta); border-right: 1px solid var(--tinta); }
+  .compra .btn { flex: 1; font-size: 15px; }
+  .track-estado { display: flex; gap: 0; border: 1px solid var(--tinta); font-family: var(--fuente-mono); font-size: 11px; letter-spacing: .08em; }
+  .track-estado span { flex: 1; padding: 12px 8px; text-align: center; border-left: 1px solid var(--tinta); }
+  .track-estado span:first-child { border-left: 0; background: var(--cara-b); color: var(--papel); font-weight: 700; }
+  .desc { border-top: 1px solid var(--borde-papel); padding-top: 22px; }
+  .desc h2 { font-size: 14px; font-variation-settings: 'wdth' 112; font-weight: 800; letter-spacing: .14em; margin-bottom: 10px; font-family: var(--fuente-mono); }
+  .desc p { font-size: 16px; line-height: 1.6; color: var(--tinta-suave); max-width: 56ch; }
+  .tags { display: flex; gap: 8px; margin-top: 16px; }
+  .tags span {
+    font-family: var(--fuente-mono); font-size: 11px; letter-spacing: .1em;
+    border: 1px solid var(--tinta); padding: 6px 12px; text-transform: uppercase;
+  }
+  @media (max-width: 560px) {
+    .detalle { grid-template-columns: 1fr; gap: 28px; padding: 28px 18px 40px; }
+    .migaja { padding: 16px 18px 0; }
+    .info h1 { font-size: 34px; }
+    .plato-principal .grabado { font-size: 48px; }
+    .compra { flex-direction: column; }
+    .track-estado { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<header class="cab">
+  <a class="marca" href="#">URBANSHOP<span class="disco"></span></a>
+  <nav>
+    <a href="#">TODO</a><a href="#">CAMISETAS</a><a href="#">PANTALONES</a><a href="#">GORRAS</a><a href="#">ACCESORIOS</a>
+  </nav>
+  <div class="carrito-pastilla">CARRITO <span class="n">3</span></div>
+</header>
+
+<div class="migaja">TODO / CAMISETAS / <b>CAMISETA ESTAMPADA CIUDAD</b></div>
+
+<main class="detalle">
+  <section class="galeria">
+    <div class="plato-principal">
+      <div class="grabado">Ciu<br>Dad</div>
+      <div class="surco-vivo"><span>LADO A · 33⅓ RPM</span><span>ESTAMPADO FRONTAL</span></div>
+    </div>
+    <div class="miniaturas">
+      <div class="mini sel">PORTADA</div>
+      <div class="mini">DETALLE</div>
+      <div class="mini">ESPALDA</div>
+    </div>
+  </section>
+
+  <section class="info">
+    <div class="precio-fila">
+      <span class="p">$69.900</span>
+      <span class="cat">CAT.002 · COP</span>
+    </div>
+    <h1>Camiseta<br>Estampada<br>Ciudad</h1>
+
+    <div class="tags"><span>ESTAMPADO</span><span>NUEVO</span><span>ALGODÓN 100%</span></div>
+
+    <div class="grupo" style="margin-top:28px">
+      <div class="etiqueta-bloque"><span>COLOR</span><b>NEGRO</b></div>
+      <div class="pasta">
+        <span class="color-pastilla sel"><span class="punto" style="background:#1B1A17"></span>NEGRO</span>
+        <span class="color-pastilla"><span class="punto" style="background:#8F8B84"></span>GRIS</span>
+      </div>
+    </div>
+
+    <div class="grupo">
+      <div class="etiqueta-bloque"><span>TALLA</span><b>SELECCIONADA · M</b></div>
+      <div class="pasta">
+        <span class="size agotado" title="agotado">S</span>
+        <span class="size sel">M</span>
+        <span class="size">L</span>
+        <span class="size">XL</span>
+      </div>
+      <div class="hatch tibio"></div>
+      <div class="etq-hatch">EN ESTA VARIANTE: 4 DE 10 · <span style="color:var(--prensa)">S AGOTADA</span></div>
+    </div>
+
+    <div class="grupo">
+      <div class="etiqueta-bloque"><span>CANTIDAD</span></div>
+      <div style="display:flex; gap:14px; align-items:stretch">
+        <div class="stepper"><button>−</button><span class="q">1</span><button>+</button></div>
+        <button class="btn prensa" style="flex:1">AGREGAR A LA BOLSA</button>
+      </div>
+    </div>
+
+    <div class="desc">
+      <h2>LA FICHA</h2>
+      <p>Estampado frontal inspirado en la calle. Corte holgado, algodón 100% peinado, costura reforzada en cuello. Se lleva suelta; si dudas entre dos tallas, quédate con la más pequeña.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <span>TALLA Y COLOR SE ELIGEN ANTES DE PAGAR</span>
+  <span>PAGO SEGURO CON MERCADO PAGO</span>
+  <span>ENVÍO NACIONAL</span>
+</footer>
+<div class="nota-maqueta">MAQUETA 02 · DETALLE · ESTADOS: AGOTADO / POCAS UNIDADES</div>
+</body>
+</html>

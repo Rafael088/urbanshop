@@ -1,0 +1,237 @@
+/* Urbanshop · sistema visual para maquetas (crate-digging / tienda de vinilos) */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Martian+Mono:wght@300..800&display=swap');
+
+:root {
+  --papel: #F3EFE4;
+  --papel-deriva: #EAF0E7;
+  --papel-hondo: #E7DFCC;
+  --borde-papel: #D8CDB4;
+  --tinta: #1B1A17;
+  --tinta-suave: #46413A;
+  --prensa: #C43D2B;
+  --cara-b: #2E6B67;
+  --surco: #CFC5AC;
+  --aviso: #B5731A;
+  --fuente-display: 'Archivo', sans-serif;
+  --fuente-mono: 'Martian Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { background: var(--papel); }
+
+body {
+  font-family: var(--fuente-display);
+  font-variation-settings: 'wdth' 100;
+  color: var(--tinta);
+  background: linear-gradient(118deg, var(--papel) 0%, var(--papel) 62%, var(--papel-deriva) 100%);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--prensa); color: var(--papel); }
+
+a { color: inherit; text-decoration: none; }
+
+/* ---------- cabecera ---------- */
+.cab {
+  background: var(--tinta);
+  color: var(--papel);
+  padding: 0 40px;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+.marca {
+  font-weight: 900;
+  font-variation-settings: 'wdth' 118;
+  font-size: 26px;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.marca .disco {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: repeating-radial-gradient(circle at 50% 50%, var(--papel) 0 1px, transparent 1px 3px);
+  outline: 2px solid var(--papel);
+  position: relative;
+}
+.marca .disco::after {
+  content: ''; position: absolute; inset: 9px; border-radius: 50%; background: var(--prensa);
+}
+.cab nav { display: flex; gap: 4px; margin-left: 8px; }
+.cab nav a {
+  font-family: var(--fuente-mono); font-size: 13px; font-weight: 500;
+  letter-spacing: 0.08em; padding: 10px 16px; color: var(--papel);
+}
+.cab nav a:hover { background: #2A2823; }
+.cab nav a.sel { background: var(--papel); color: var(--tinta); }
+.carrito-pastilla {
+  margin-left: auto; display: flex; align-items: center; gap: 10px;
+  border: 1px solid var(--papel); padding: 9px 16px;
+  font-family: var(--fuente-mono); font-size: 13px; font-weight: 600; letter-spacing: .04em;
+}
+.carrito-pastilla .n {
+  background: var(--prensa); color: var(--papel); width: 22px; height: 22px;
+  display: grid; place-items: center; font-size: 12px;
+}
+
+/* ---------- franja OBI ---------- */
+.obi {
+  background: var(--prensa); color: var(--papel);
+  font-family: var(--fuente-mono); font-weight: 700; font-size: 13px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  padding: 13px 40px; display: flex; justify-content: space-between;
+}
+.obi .sep { opacity: .55; }
+
+/* ---------- rejilla de fundas ---------- */
+.lienzo { padding: 56px 40px 32px; }
+.fila-titulo { display: flex; align-items: baseline; gap: 24px; margin-bottom: 34px; }
+.fila-titulo h1 {
+  font-size: 44px; font-weight: 900; font-variation-settings: 'wdth' 112;
+  letter-spacing: -0.015em;
+}
+.fila-titulo .reglon {
+  flex: 1; height: 1px; background: var(--tinta); opacity: .25;
+}
+.fila-titulo .cuenta {
+  font-family: var(--fuente-mono); font-size: 13px; font-weight: 500;
+  color: var(--tinta-suave); letter-spacing: .06em; white-space: nowrap;
+}
+.rejilla {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px 24px;
+}
+.funda { display: block; }
+.funda .portada {
+  aspect-ratio: 1 / 1; position: relative; overflow: hidden;
+  background:
+    repeating-radial-gradient(circle at 50% 50%, rgba(27,26,23,.05) 0 1px, transparent 1px 7px),
+    var(--papel-hondo);
+  border: 1px solid var(--borde-papel);
+  display: flex; align-items: center; justify-content: center;
+}
+.funda .portada .nombre-bordado {
+  font-weight: 900; font-variation-settings: 'wdth' 125;
+  font-size: clamp(22px, 2.4vw, 34px); line-height: .96;
+  letter-spacing: -0.02em; text-align: center; text-transform: uppercase;
+  padding: 0 18px;
+}
+.funda .portada .etiqueta-lomo {
+  position: absolute; left: 0; top: 0; width: 34px; height: 100%;
+  background: var(--cara-b);
+  display: flex; align-items: center; justify-content: center;
+}
+.funda .portada .etiqueta-lomo span {
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-family: var(--fuente-mono); font-size: 11px; font-weight: 600;
+  color: var(--papel); letter-spacing: .14em;
+}
+.funda .portada .sello-nuevo {
+  position: absolute; top: 14px; right: 14px; transform: rotate(6deg);
+  background: var(--papel); color: var(--tinta);
+  font-family: var(--fuente-mono); font-size: 10px; font-weight: 700;
+  letter-spacing: .14em; padding: 6px 10px;
+  border: 1px solid var(--tinta); border-radius: 999px;
+}
+.ficha { padding-top: 12px; }
+.ficha .cat {
+  font-family: var(--fuente-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: .1em; color: var(--tinta-suave);
+}
+.ficha .linea-nombre-precio {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+  margin-top: 4px;
+}
+.ficha h3 { font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
+.ficha .precio {
+  font-family: var(--fuente-mono); font-weight: 700; font-size: 15px; white-space: nowrap;
+}
+.funda:hover .portada { outline: 2px solid var(--tinta); outline-offset: 3px; }
+.funda:hover .cat { color: var(--prensa); }
+
+/* ---------- hatch de stock ---------- */
+.hatch {
+  height: 10px; border: 1px solid var(--tinta); margin-top: 8px;
+}
+.hatch.lleno { background: repeating-linear-gradient(45deg, var(--tinta) 0 2px, transparent 2px 5px); }
+.hatch.tibio { background: repeating-linear-gradient(45deg, var(--tinta) 0 2px, transparent 2px 11px); }
+.hatch.ultima { background: repeating-linear-gradient(45deg, var(--tinta) 0 2px, transparent 2px 22px); }
+.hatch.vacio { background: repeating-linear-gradient(45deg, var(--borde-papel) 0 2px, transparent 2px 9px); }
+.etq-hatch {
+  font-family: var(--fuente-mono); font-size: 10px; letter-spacing: .12em;
+  color: var(--tinta-suave); margin-top: 5px; text-transform: uppercase;
+}
+.etq-hatch.alerta { color: var(--prensa); }
+
+/* ---------- carril de categorías (lomos) ---------- */
+.lomos { padding: 8px 40px 64px; }
+.lomos h2 {
+  font-family: var(--fuente-mono); font-size: 13px; font-weight: 600;
+  letter-spacing: .2em; color: var(--tinta-suave); margin-bottom: 20px; text-transform: uppercase;
+}
+.fila-lomos { display: flex; gap: 10px; }
+.lomo {
+  flex: 1; min-height: 92px; padding: 14px 16px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  border: 1px solid var(--borde-papel); background: var(--papel);
+  font-weight: 800; font-variation-settings: 'wdth' 112; font-size: 19px;
+  letter-spacing: -.01em; text-transform: uppercase;
+}
+.lomo .n { font-family: var(--fuente-mono); font-size: 11px; font-weight: 500; color: var(--tinta-suave); letter-spacing: .1em; }
+.lomo:nth-child(odd) { background: var(--tinta); color: var(--papel); }
+.lomo:nth-child(odd) .n { color: #A9A291; }
+.lomo:nth-child(2) { border-top: 6px solid var(--prensa); }
+.lomo:nth-child(4) { border-top: 6px solid var(--cara-b); }
+
+/* ---------- botones y controles ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  font-family: var(--fuente-mono); font-weight: 700; font-size: 14px;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 18px 28px; border: 1px solid var(--tinta); cursor: pointer;
+  background: var(--tinta); color: var(--papel); border-radius: 0;
+}
+.btn.sec { background: transparent; color: var(--tinta); }
+.btn.prensa { background: var(--prensa); border-color: var(--prensa); color: var(--papel); }
+.btn.deshab { background: var(--papel-hondo); color: #9A917E; border-color: var(--borde-papel); }
+.btn.bloque { width: 100%; }
+
+/* ---------- pie ---------- */
+.pie {
+  border-top: 1px solid var(--tinta); margin-top: 24px; padding: 28px 40px;
+  display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  font-family: var(--fuente-mono); font-size: 11px; letter-spacing: .08em; color: var(--tinta-suave);
+}
+
+.nota-maqueta {
+  display: none;
+  position: fixed; bottom: 10px; right: 12px; z-index: 9;
+  font-family: var(--fuente-mono); font-size: 10px; letter-spacing: .1em;
+  color: var(--tinta-suave); background: rgba(243,239,228,.9);
+  padding: 5px 9px; border: 1px dashed var(--borde-papel);
+}
+
+:focus-visible { outline: 2px solid var(--prensa); outline-offset: 3px; }
+
+/* ---------- panel de resumen (carrito y checkout) ---------- */
+.resumen { align-self: start; border: 2px solid var(--tinta); background: var(--papel-deriva); padding: 26px 28px; }
+.resumen h2 { font-family: var(--fuente-mono); font-size: 13px; font-weight: 700; letter-spacing: .2em; margin-bottom: 20px; }
+.linea-suma { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-family: var(--fuente-mono); font-size: 14px; padding: 9px 0; }
+.linea-suma .pts { flex: 1; border-bottom: 1px dotted var(--tinta-suave); opacity: .6; transform: translateY(-4px); }
+.linea-suma.grande { border-top: 2px solid var(--tinta); margin-top: 14px; padding-top: 18px; font-weight: 800; font-size: 20px; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 560px) {
+  .cab { padding: 0 18px; height: 64px; gap: 16px; }
+  .cab nav { display: none; }
+  .obi { padding: 10px 18px; font-size: 10px; letter-spacing: .12em; flex-wrap: wrap; gap: 4px; }
+  .lienzo { padding: 32px 18px 18px; }
+  .fila-titulo h1 { font-size: 30px; }
+  .rejilla { grid-template-columns: repeat(2, 1fr); gap: 20px 14px; }
+  .lomos { padding: 4px 18px 40px; }
+  .fila-lomos { flex-direction: column; }
+  .lomo { min-height: 64px; }
+  .pie { padding: 22px 18px; flex-direction: column; align-items: flex-start; }
+}

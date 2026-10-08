@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Urbanshop · Confirmación (maqueta)</title>
+<link rel="stylesheet" href="_sistema.css">
+<style>
+  body { padding-bottom: 80px; }
+  .listo { text-align: center; padding: 52px 40px 10px; }
+  .listo .sello {
+    width: 92px; height: 92px; margin: 0 auto 20px; border-radius: 50%;
+    border: 2px solid var(--tinta); position: relative;
+    background: repeating-radial-gradient(circle, rgba(27,26,23,.14) 0 1px, transparent 1px 6px), var(--papel);
+    display: grid; place-items: center;
+  }
+  .listo .sello::after { content: '✓'; font-weight: 900; font-size: 34px; color: var(--cara-b); }
+  .listo h1 { font-size: 52px; font-weight: 900; font-variation-settings: 'wdth' 112; letter-spacing: -.02em; line-height: 1; }
+  .listo p { color: var(--tinta-suave); font-size: 17px; margin-top: 14px; }
+  .ticket-zona { display: flex; justify-content: center; padding: 40px 20px; }
+  .ticket {
+    width: 560px; background: var(--papel); border: 1px solid var(--tinta);
+    padding: 30px 34px 0; position: relative;
+    box-shadow: 0 18px 34px rgba(27,26,23,.10);
+  }
+  .ticket::after {
+    content: ''; display: block; margin: 0 -34px;
+    height: 14px; margin-top: 26px;
+    background: radial-gradient(circle at 7px 14px, transparent 7px, var(--papel) 7.5px) repeat-x;
+    background-size: 14px 14px;
+  }
+  .ticket-cab { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid var(--tinta); padding-bottom: 16px; }
+  .ticket-cab .marca-chica { font-weight: 900; font-variation-settings: 'wdth' 118; font-size: 18px; }
+  .ticket-cab .num { font-family: var(--fuente-mono); font-size: 12px; letter-spacing: .1em; color: var(--tinta-suave); }
+  .ticket table { width: 100%; border-collapse: collapse; font-family: var(--fuente-mono); font-size: 13px; margin-top: 14px; }
+  .ticket td { padding: 9px 0; border-bottom: 1px dashed var(--borde-papel); vertical-align: top; }
+  .ticket td.d { text-align: right; font-weight: 700; white-space: nowrap; }
+  .ticket td .sub { color: var(--tinta-suave); font-size: 11px; display: block; margin-top: 3px; letter-spacing: .06em; }
+  .ticket .pie-ticket { display: flex; justify-content: space-between; font-weight: 800; font-size: 17px; padding: 14px 0 4px; }
+  .ruta { margin: 8px 34px 0; padding-top: 18px; border-top: 2px solid var(--tinta); }
+  .ruta h3 { font-family: var(--fuente-mono); font-size: 11px; letter-spacing: .2em; color: var(--tinta-suave); margin-bottom: 14px; }
+  .groove { display: flex; align-items: center; }
+  .groove .punto { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--tinta); background: var(--papel); flex-shrink: 0; position: relative; }
+  .groove .punto.hecho { background: var(--cara-b); border-color: var(--cara-b); }
+  .groove .punto.activo { background: var(--prensa); border-color: var(--prensa); box-shadow: 0 0 0 5px rgba(196,61,43,.18); }
+  .groove .linea { height: 3px; flex: 1; background: repeating-linear-gradient(90deg, var(--tinta) 0 6px, transparent 6px 12px); opacity: .35; }
+  .groove .linea.llena { background: var(--cara-b); opacity: 1; }
+  .ruta .nombres { display: flex; justify-content: space-between; margin-top: 10px; font-family: var(--fuente-mono); font-size: 11px; letter-spacing: .08em; color: var(--tinta-suave); }
+  .ruta .nombres b { color: var(--tinta); }
+  .dos-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1040px; margin: 0 auto; padding: 10px 40px 30px; }
+  .tarj { border: 1px solid var(--borde-papel); background: var(--papel); padding: 24px 26px; }
+  .tarj h3 { font-family: var(--fuente-mono); font-size: 12px; letter-spacing: .18em; margin-bottom: 12px; }
+  .tarj p { font-size: 15px; line-height: 1.6; color: var(--tinta-suave); }
+  .tarj .cta { margin-top: 16px; display: flex; gap: 12px; }
+  @media (max-width: 560px) {
+    .listo { padding: 34px 18px 0; } .listo h1 { font-size: 36px; }
+    .ticket { width: 100%; }
+    .dos-columnas { grid-template-columns: 1fr; padding: 10px 18px; }
+  }
+</style>
+</head>
+<body>
+<header class="cab">
+  <a class="marca" href="#">URBANSHOP<span class="disco"></span></a>
+  <div class="carrito-pastilla">PEDIDO #1042</div>
+</header>
+
+<section class="listo">
+  <div class="sello"></div>
+  <h1>Ya es tuyo,<br>está en camino</h1>
+  <p>Pago aprobado en Mercado Pago · te escribimos a <b>laura.mesa@correo.com</b></p>
+</section>
+
+<div class="ticket-zona">
+  <div class="ticket">
+    <div class="ticket-cab">
+      <span class="marca-chica">URBANSHOP</span>
+      <span class="num">RECIBO #1042 · 07 OCT 2026</span>
+    </div>
+    <table>
+      <tr><td>Jogger Cargo <span class="sub">SKU JOGGER-CARGO-M-OLIV · M · VERDE OLIVA · ×1</span></td><td class="d">$119.900</td></tr>
+      <tr><td>Camiseta Estampada Ciudad <span class="sub">SKU CAMISETA-ESTAMPAD-M-NEGR · M · NEGRO · ×2</span></td><td class="d">$139.800</td></tr>
+      <tr><td>Gorra Snapback Logo <span class="sub">SKU GORRA-SNAPBACK-L-NEGR · ÚNICA · NEGRO · ×1</span></td><td class="d">$64.900</td></tr>
+      <tr><td>Envío <span class="sub">CALLE 45 #23-10, BELLO · ANTIOQUIA</span></td><td class="d">$15.000</td></tr>
+    </table>
+    <div class="pie-ticket"><span>TOTAL PAGADO</span><span>$339.500 COP</span></div>
+
+    <div class="ruta">
+      <h2>ESTADO DEL PEDIDO</h2>
+      <div class="groove">
+        <span class="punto hecho"></span><span class="linea llena"></span>
+        <span class="punto activo"></span><span class="linea"></span>
+        <span class="punto"></span><span class="linea"></span>
+        <span class="punto"></span>
+      </div>
+      <div class="nombres"><span style="color:var(--cara-b)"><b>PENDIENTE ✓</b></span><span style="color:var(--prensa)"><b>PAGADA</b></span><span>ENVIADA</span><span>ENTREGADA</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="dos-columnas">
+  <div class="tarj">
+    <h3>¿Y AHORA QUÉ?</h3>
+    <p>El stock ya se descontó por el webhook de Mercado Pago. Cuando el pedido pase a ENVIADO, el mismo correo te avisará con el detalle.</p>
+    <div class="cta"><a class="btn" href="#">SEGUIR EXPLORANDO</a><a class="btn sec" href="#">VOLVER A LA BATEA</a></div>
+  </div>
+  <div class="tarj">
+    <h3>COPIA PARA TUS ARCHIVOS</h3>
+    <p>Guarda el número de recibo. Con él y tu correo puedes escribirnos si algo no llega como se esperaba.</p>
+    <div class="cta"><a class="btn sec" href="#">DESCARGAR RECIBO</a><a class="btn sec" href="#">COPIAR #1042</a></div>
+  </div>
+</div>
+
+<footer class="pie">
+  <span>PASO 3 DE 3 · LISTO</span>
+  <span>GRACIAS POR COMPRAR AQUI</span>
+  <span>© 2026 URBANSHOP</span>
+</footer>
+<div class="nota-maqueta">MAQUETA 05 · CONFIRMACIÓN · RECIBO TROQUELADO + RUTA DE ESTADOS</div>
+</body>
+</html>

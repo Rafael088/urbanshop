@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Urbanshop · Checkout (maqueta)</title>
+<link rel="stylesheet" href="_sistema.css">
+<style>
+  .progreso { display: flex; padding: 0 40px; border-bottom: 1px solid var(--tinta); }
+  .progreso span {
+    font-family: var(--fuente-mono); font-size: 12px; letter-spacing: .14em; padding: 16px 20px;
+    border-right: 1px solid var(--borde-papel); color: var(--tinta-suave);
+  }
+  .progreso span.hecho::before { content: '✓ '; color: var(--cara-b); font-weight: 800; }
+  .progreso span.activo { background: var(--tinta); color: var(--papel); font-weight: 700; }
+  .progreso:last-child { border-right: 0; }
+  .form-pagina { display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; padding: 44px 40px 40px; }
+  .bloque-form { border: 1px solid var(--borde-papel); background: var(--papel); margin-bottom: 22px; }
+  .bf-cab { padding: 18px 24px; border-bottom: 2px solid var(--tinta); display: flex; justify-content: space-between; align-items: baseline; }
+  .bf-cab h2 { font-size: 20px; font-weight: 900; font-variation-settings: 'wdth' 115; letter-spacing: -.01em; }
+  .bf-cab .n { font-family: var(--fuente-mono); font-size: 12px; color: var(--tinta-suave); letter-spacing: .12em; }
+  .campos { padding: 22px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px 16px; }
+  .campo { display: flex; flex-direction: column; gap: 8px; }
+  .campo.full { grid-column: 1 / -1; }
+  .campo label { font-family: var(--fuente-mono); font-size: 11px; font-weight: 700; letter-spacing: .16em; color: var(--tinta-suave); text-transform: uppercase; }
+  .campo input, .campo select {
+    border: 1px solid var(--tinta); background: transparent; padding: 14px 14px; font-size: 16px;
+    font-family: var(--fuente-display); color: var(--tinta); border-radius: 0; appearance: none;
+  }
+  .campo select { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231B1A17' stroke-width='2' fill='none'/%3E%3C/svg%3E") no-repeat right 14px center; padding-right: 38px; }
+  .campo input::placeholder { color: #9A917E; }
+  .campo input:focus, .campo select:focus { outline: 2px solid var(--prensa); outline-offset: 2px; border-color: var(--tinta); }
+  .campo .ayuda { font-size: 12px; color: var(--tinta-suave); }
+  .campo .error { font-family: var(--fuente-mono); font-size: 11px; color: var(--prensa); letter-spacing: .06em; }
+  .campo.malo input { border-color: var(--prensa); }
+  .pago-nota { padding: 20px 24px; display: flex; gap: 14px; align-items: center; border-top: 1px dashed var(--borde-papel); font-size: 13px; color: var(--tinta-suave); line-height: 1.5; }
+  .mp-chip {
+    font-family: var(--fuente-mono); font-weight: 700; font-size: 12px; letter-spacing: .1em;
+    background: #00AC67; color: #fff; padding: 8px 12px; white-space: nowrap;
+  }
+  aside .resumen { position: sticky; top: 20px; }
+  .mini-pista { display: flex; justify-content: space-between; gap: 10px; font-family: var(--fuente-mono); font-size: 13px; padding: 10px 0; border-bottom: 1px dashed var(--borde-papel); }
+  .mini-pista .q { color: var(--tinta-suave); }
+  @media (max-width: 560px) {
+    .form-pagina { grid-template-columns: 1fr; padding: 20px 18px; gap: 24px; }
+    .campos { grid-template-columns: 1fr; }
+    .progreso { padding: 0 18px; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<header class="cab">
+  <a class="marca" href="#">URBANSHOP<span class="disco"></span></a>
+  <div class="carrito-pastilla">CHECKOUT</div>
+</header>
+
+<div class="progreso">
+  <span class="hecho">CARRITO</span>
+  <span class="activo">DATOS DE ENTREGA</span>
+  <span>PAGO MP</span>
+</div>
+
+<main class="form-pagina">
+  <form>
+    <section class="bloque-form">
+      <div class="bf-cab"><h2>¿A quién le llega el paquete?</h2><span class="n">PASO 2 / 3</span></div>
+      <div class="campos">
+        <div class="campo full"><label>Nombre completo</label><input value="Laura Mesa"></div>
+        <div class="campo malo">
+          <label>Correo</label>
+          <input value="laura.mesa@">
+          <span class="error">✕ FALTA EL DOMINIO — EJ. @CORREO.COM</span>
+        </div>
+        <div class="campo"><label>Teléfono</label><input placeholder="300 000 0000"></div>
+      </div>
+    </section>
+
+    <section class="bloque-form">
+      <div class="bf-cab"><h2>¿Dónde se entrega?</h2><span class="n">ENVÍO NACIONAL</span></div>
+      <div class="campos">
+        <div class="campo full"><label>Dirección</label><input placeholder="Calle / carrera, número, barrio"></div>
+        <div class="campo">
+          <label>Departamento</label>
+          <select><option>ANTIOQUIA</option><option>BOGOTÁ D.C.</option><option>VALLE</option><option>SANTANDER</option></select>
+        </div>
+        <div class="campo"><label>Ciudad</label><input placeholder="Ej. Medellín"></div>
+        <div class="campo"><label>Código postal <span style="font-weight:400;letter-spacing:.04em">(OPCIONAL)</span></label><input placeholder="050001"></div>
+        <div class="campo" style="justify-content:flex-end"><span class="ayuda">Sin cuenta: solo necesitamos esto para el envío y el correo de confirmación.</span></div>
+      </div>
+    </section>
+
+    <button class="btn prensa bloque" type="button" style="font-size:16px; padding: 22px">IR A PAGAR CON MERCADO PAGO →</button>
+    <div class="pago-nota">
+      <span class="mp-chip">MERCADO PAGO</span>
+      <span>Te llevamos a la plataforma segura de Mercado Pago (tarjeta, PSE o efectivo). Al volver, tu pedido queda PAGADO y bajamos el stock de cada variante.</span>
+    </div>
+  </form>
+
+  <aside>
+    <div class="resumen">
+      <h2>LETRA PEQUEÑA</h2>
+      <div class="mini-pista"><span>Jogger Cargo · M/OLIVA <span class="q">×1</span></span><span>$119.900</span></div>
+      <div class="mini-pista"><span>Camiseta Estampada Ciudad · M/NEGR <span class="q">×2</span></span><span>$139.800</span></div>
+      <div class="mini-pista"><span>Gorra Snapback Logo <span class="q">×1</span></span><span>$64.900</span></div>
+      <div class="linea-suma"><span>SUBTOTAL</span><span class="pts"></span><span>$324.500</span></div>
+      <div class="linea-suma"><span>ENVÍO</span><span class="pts"></span><span>AL CONFIRMAR</span></div>
+      <div class="linea-suma grande"><span>TOTAL</span><span class="pts"></span><span>$324.500</span></div>
+      <div style="margin-top:18px"><a class="btn sec bloque" href="#">← VOLVER AL CARRITO</a></div>
+    </div>
+  </aside>
+</main>
+
+<footer class="pie">
+  <span>TUS DATOS SOLO SIRVEN PARA ESTE ENVÍO</span>
+  <span>NO ALMACENAMOS TU MÉTODO DE PAGO</span>
+  <span>COP</span>
+</footer>
+<div class="nota-maqueta">MAQUETA 04 · CHECKOUT · MUESTRA ESTADO DE ERROR DE VALIDACIÓN</div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Urbanshop · Carrito (maqueta)</title>
+<link rel="stylesheet" href="_sistema.css">
+<style>
+  .carrito { display: grid; grid-template-columns: 1.6fr 1fr; gap: 48px; padding: 48px 40px 40px; }
+  .libreta { border: 1px solid var(--borde-papel); background: var(--papel); }
+  .libreta-cab {
+    padding: 22px 28px; border-bottom: 2px solid var(--tinta);
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .libreta-cab h1 { font-size: 26px; font-weight: 900; font-variation-settings: 'wdth' 118; letter-spacing: -.01em; }
+  .libreta-cab .cara { font-family: var(--fuente-mono); font-size: 12px; letter-spacing: .16em; color: var(--tinta-suave); }
+  .pista {
+    display: grid; grid-template-columns: 76px 1fr auto auto; gap: 20px; align-items: center;
+    padding: 20px 28px; border-bottom: 1px dashed var(--borde-papel);
+  }
+  .pista .portadita {
+    width: 76px; height: 76px; border: 1px solid var(--borde-papel); background: var(--papel-hondo);
+    display: grid; place-items: center; text-align: center;
+    font-weight: 900; font-variation-settings: 'wdth' 118; font-size: 12px; line-height: 1.05; text-transform: uppercase;
+  }
+  .pista .que h3 { font-size: 17px; font-weight: 700; }
+  .pista .que .vars { font-family: var(--fuente-mono); font-size: 11px; letter-spacing: .08em; color: var(--tinta-suave); margin-top: 4px; }
+  .pista .stepper { transform: scale(.85); transform-origin: right; }
+  .pista .total-pista { font-family: var(--fuente-mono); font-weight: 700; font-size: 16px; min-width: 96px; text-align: right; display: flex; align-items: baseline; gap: 10px; justify-content: flex-end; }
+  .pista .total-pista button { border: 0; background: none; cursor: pointer; color: var(--prensa); font-family: var(--fuente-mono); font-size: 12px; text-decoration: underline; }
+  .leader { grid-column: 1/-1; border-bottom: 0; }
+  .suma { padding: 22px 28px; display: flex; justify-content: space-between; align-items: baseline; }
+  .suma .t { font-family: var(--fuente-mono); font-size: 12px; letter-spacing: .16em; color: var(--tinta-suave); }
+  .resumen { align-self: start; border: 2px solid var(--tinta); background: var(--papel-deriva); padding: 26px 28px; }
+  .resumen h2 { font-family: var(--fuente-mono); font-size: 13px; font-weight: 700; letter-spacing: .2em; margin-bottom: 20px; }
+  .linea-suma {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+    font-family: var(--fuente-mono); font-size: 14px; padding: 9px 0;
+  }
+  .linea-suma .pts { flex: 1; border-bottom: 1px dotted var(--tinta-suave); opacity: .6; transform: translateY(-4px); }
+  .linea-suma.grande { border-top: 2px solid var(--tinta); margin-top: 14px; padding-top: 18px; font-weight: 800; font-size: 20px; }
+  .resumen .nota { font-size: 13px; color: var(--tinta-suave); margin: 14px 0 20px; line-height: 1.5; }
+  .siguiente-pista {
+    padding: 16px 28px; border-top: 2px solid var(--tinta); display: flex; gap: 14px; align-items: center;
+    font-family: var(--fuente-mono); font-size: 12px; letter-spacing: .1em; color: var(--tinta-suave);
+  }
+  .siguiente-pista .btn.sec { padding: 12px 18px; font-size: 12px; }
+  .vacio { padding: 60px 28px; text-align: center; }
+  .vacio .disco-grande { width: 120px; height: 120px; margin: 0 auto 22px; border-radius: 50%; background: repeating-radial-gradient(circle, rgba(27,26,23,.12) 0 1px, transparent 1px 8px), var(--papel-hondo); border: 1px solid var(--borde-papel); position: relative; }
+  .vacio .disco-grande::after { content:''; position:absolute; inset: 46px; background: var(--prensa); border-radius: 50%; }
+  @media (max-width: 560px) {
+    .carrito { grid-template-columns: 1fr; padding: 24px 18px; gap: 24px; }
+    .pista { grid-template-columns: 64px 1fr; gap: 12px 14px; padding: 16px 18px; }
+    .pista .stepper, .pista .total-pista { grid-column: 2; justify-content: space-between; }
+  }
+</style>
+</head>
+<body>
+<header class="cab">
+  <a class="marca" href="#">URBANSHOP<span class="disco"></span></a>
+  <nav>
+    <a href="#">TODO</a><a href="#">CAMISETAS</a><a href="#">PANTALONES</a><a href="#">GORRAS</a><a href="#">ACCESORIOS</a>
+  </nav>
+  <div class="carrito-pastilla">CARRITO <span class="n">3</span></div>
+</header>
+
+<main class="carrito">
+  <section class="libreta">
+    <div class="libreta-cab">
+      <h1>Tu selección</h1>
+      <span class="cara">CARA A · 3 PISTAS</span>
+    </div>
+
+    <div class="pista">
+      <div class="portadita">Jogger<br>Cargo</div>
+      <div class="que">
+        <h3>Jogger Cargo</h3>
+        <div class="vars">SKU JOGGER-CARGO-M-OLIV · TALLA M · VERDE OLIVA</div>
+      </div>
+      <div class="stepper"><button>−</button><span class="q">1</span><button>+</button></div>
+      <div class="total-pista"><button>QUITAR</button>$119.900</div>
+    </div>
+
+    <div class="pista">
+      <div class="portadita">Esta<br>Ciu<br>Dad</div>
+      <div class="que">
+        <h3>Camiseta Estampada Ciudad</h3>
+        <div class="vars">SKU CAMISETA-ESTAMPAD-M-NEGR · TALLA M · NEGRO</div>
+      </div>
+      <div class="stepper"><button>−</button><span class="q">2</span><button>+</button></div>
+      <div class="total-pista"><button>QUITAR</button>$139.800</div>
+    </div>
+
+    <div class="pista">
+      <div class="portadita">Sna<br>Pback</div>
+      <div class="que">
+        <h3>Gorra Snapback Logo</h3>
+        <div class="vars">SKU GORRA-SNAPBACK-L-NEGR · TALLA ÚNICA · NEGRO</div>
+      </div>
+      <div class="stepper"><button>−</button><span class="q">1</span><button>+</button></div>
+      <div class="total-pista"><button>QUITAR</button>$64.900</div>
+    </div>
+
+    <div class="siguiente-pista">
+      <span>¿BUSCAS OTRA COSA?</span>
+      <a class="btn sec" href="#">SEGUIR EXPLORANDO</a>
+      <span style="margin-left:auto">SE GUARDA EN ESTE NAVEGADOR</span>
+    </div>
+  </section>
+
+  <aside class="resumen">
+    <h2>LETRA PEQUEÑA</h2>
+    <div class="linea-suma"><span>SUBTOTAL (4 UDS)</span><span class="pts"></span><span>$324.500</span></div>
+    <div class="linea-suma"><span>ENVÍO</span><span class="pts"></span><span>AL CONFIRMAR</span></div>
+    <div class="linea-suma grande"><span>TOTAL</span><span class="pts"></span><span>$324.500</span></div>
+    <p class="nota">El carrito vive en tu navegador: no necesitas cuenta para comprar. El pago se completa en Mercado Pago.</p>
+    <a class="btn prensa bloque" href="#">IR AL CHECKOUT →</a>
+    <div style="margin-top:14px"><a class="btn sec bloque" href="#">VACIAR BOLSA</a></div>
+  </aside>
+</main>
+
+<footer class="pie">
+  <span>PASO 1 DE 3 · CARRITO</span>
+  <span>CHECKOUT → PAGO MP → CONFIRMACIÓN</span>
+  <span>PRECIOS EN COP</span>
+</footer>
+<div class="nota-maqueta">MAQUETA 03 · CARRITO · REGLETA CON IMPORTES A LA DERECHA</div>
+</body>
+</html>

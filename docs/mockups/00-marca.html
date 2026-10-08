@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Urbanshop · Hoja de marca</title>
+<link rel="stylesheet" href="_sistema.css">
+<style>
+  body { padding: 0 0 90px; }
+  .portada-marca {
+    background: var(--tinta); color: var(--papel); padding: 60px;
+    display: flex; align-items: center; justify-content: space-between; gap: 40px;
+  }
+  .portada-marca .texto h1 { font-size: 84px; font-weight: 900; font-variation-settings: 'wdth' 122; letter-spacing: -.02em; line-height: .92; }
+  .portada-marca .texto p { font-family: var(--fuente-mono); font-size: 13px; letter-spacing: .22em; color: #A9A291; margin-top: 18px; text-transform: uppercase; }
+  .sello-grande { width: 240px; height: 240px; flex-shrink: 0; position: relative; border-radius: 50%;
+    background: repeating-radial-gradient(circle, rgba(243,239,228,.22) 0 1px, transparent 1px 7px), #24221d;
+    display: grid; place-items: center; }
+  .sello-grande .etiqueta {
+    width: 120px; height: 120px; border-radius: 50%; background: var(--prensa);
+    display: grid; place-items: center; position: relative;
+  }
+  .sello-grande .etiqueta .agujero { width: 16px; height: 16px; border-radius: 50%; background: var(--tinta); position: absolute; }
+  .sello-grande .etiqueta span {
+    position: absolute; inset: 0;
+    font-family: var(--fuente-mono); font-size: 10.5px; font-weight: 700; letter-spacing: .32em; color: var(--papel);
+  }
+  .seccion { padding: 54px 60px 0; }
+  .seccion > h2 {
+    font-family: var(--fuente-mono); font-size: 14px; font-weight: 700; letter-spacing: .24em;
+    color: var(--tinta-suave); border-bottom: 2px solid var(--tinta); padding-bottom: 12px; margin-bottom: 30px;
+    display: flex; justify-content: space-between;
+  }
+  .variaciones { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 20px; }
+  .variacion { border: 1px solid var(--borde-papel); padding: 30px; display: flex; flex-direction: column; justify-content: space-between; gap: 26px; min-height: 200px; }
+  .variacion.dark { background: var(--tinta); color: var(--papel); }
+  .variacion .que { font-family: var(--fuente-mono); font-size: 11px; letter-spacing: .14em; color: var(--tinta-suave); }
+  .variacion.dark .que { color: #A9A291; }
+  .w-lock { display: flex; align-items: center; gap: 14px; font-weight: 900; font-variation-settings: 'wdth' 118; font-size: 34px; letter-spacing: -.01em; }
+  .w-lock .d { width: 34px; height: 34px; border-radius: 50%; background: repeating-radial-gradient(circle, currentColor 0 1px, transparent 1px 4px); outline: 2px solid currentColor; position: relative; flex-shrink: 0; }
+  .w-lock .d::after { content:''; position:absolute; inset: 12px; border-radius: 50%; background: var(--prensa); }
+  .stack { display: inline-block; border: 3px solid currentColor; padding: 14px 20px; text-align: center; font-weight: 900; font-variation-settings: 'wdth' 122; font-size: 30px; line-height: .95; letter-spacing: .02em; }
+  .paleta { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+  .gota { border: 1px solid var(--tinta); }
+  .gota .c { height: 110px; }
+  .gota .i { padding: 12px; font-family: var(--fuente-mono); font-size: 11px; line-height: 1.7; }
+  .gota .i b { font-size: 12px; letter-spacing: .06em; display: block; }
+  .gota .i span { color: var(--tinta-suave); letter-spacing: .04em; }
+  .tipos { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .tipo { border: 1px solid var(--borde-papel); padding: 26px 28px; background: var(--papel); }
+  .tipo .nombre { font-family: var(--fuente-mono); font-size: 11px; letter-spacing: .18em; color: var(--tinta-suave); margin-bottom: 18px; display: flex; justify-content: space-between; }
+  .display-8 { font-weight: 900; font-variation-settings: 'wdth' 118; font-size: 54px; line-height: .95; letter-spacing: -.02em; text-transform: uppercase; }
+  .escala { margin-top: 14px; font-weight: 900; font-variation-settings: 'wdth' 122; font-size: 13px; letter-spacing: .1em; color: var(--tinta-suave); font-family: var(--fuente-mono); font-weight: 400; }
+  .cuerpo p { font-size: 17px; line-height: 1.65; margin-top: 12px; max-width: 46ch; }
+  .mono-demo { font-family: var(--fuente-mono); font-size: 15px; line-height: 2; letter-spacing: .04em; margin-top: 8px; }
+  .reglas { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .regla { border-left: 3px solid var(--cara-b); padding: 6px 0 6px 20px; }
+  .regla.no { border-left-color: var(--prensa); }
+  .regla h3 { font-size: 19px; font-weight: 800; font-variation-settings: 'wdth' 112; }
+  .regla p { color: var(--tinta-suave); font-size: 14.5px; line-height: 1.55; margin-top: 6px; }
+  .hatch-demo { display:flex; gap:16px; align-items:center; margin-top:22px; border:1px solid var(--borde-papel); padding:18px 20px; background:var(--papel); }
+  .hatch-demo .hatch { width: 130px; margin: 0; }
+  .hatch-demo .t { font-family: var(--fuente-mono); font-size: 11px; letter-spacing:.12em; color: var(--tinta-suave); margin-left:auto; }
+</style>
+</head>
+<body>
+<div class="portada-marca">
+  <div class="texto">
+    <h1>URBAN<br>SHOP</h1>
+    <p>Hoja de marca · v1 · octubre 2026</p>
+  </div>
+  <div class="sello-grande"><div class="etiqueta"><div class="agujero"></div><span>33⅓ RPM · URBANSHOP · LADO A ·</span></div></div>
+</div>
+
+<section class="seccion">
+  <h2><span>1 · MARCA REGISTRADA</span><span>LOGOTIPO</span></h2>
+  <div class="variaciones">
+    <div class="variacion">
+      <span class="que">PRIMARIA · TINTA SOBRE PAPEL</span>
+      <div class="w-lock">URBANSHOP<span class="d"></span></div>
+    </div>
+    <div class="variacion dark">
+      <span class="que">INVERSA · SOBRE TINTA</span>
+      <div class="w-lock" style="font-size:26px">URBANSHOP<span class="d"></span></div>
+    </div>
+    <div class="variacion">
+      <span class="que">APILADA · SPOTS Y EMPAQUE</span>
+      <div style="display:flex; justify-content:center"><span class="stack">URBAN<br>SHOP</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion">
+  <h2><span>2 · PALETA DEL SELLO</span><span>COLORES</span></h2>
+  <div class="paleta">
+    <div class="gota"><div class="c" style="background:#F3EFE4"></div><div class="i"><b>PAPEL</b><span>#F3EFE4<br>FONDO GENERAL<br>TEXTO: TINTA ✓ AA</span></div></div>
+    <div class="gota"><div class="c" style="background:#1B1A17"></div><div class="i"><b>TINTA</b><span>#1B1A17<br>TEXTOS, CABECERA<br>BOTÓN PRIMARIO</span></div></div>
+    <div class="gota"><div class="c" style="background:#C43D2B"></div><div class="i"><b>ROJO PRENSA</b><span>#C43D2B<br>FRANJA OBI · CTA PAGO<br>ESTADOS DE ALERTA</span></div></div>
+    <div class="gota"><div class="c" style="background:#2E6B67"></div><div class="i"><b>CARA B</b><span>#2E6B67<br>LADOS DE CATEGORÍA<br>PAGO EXITOSO</span></div></div>
+    <div class="gota"><div class="c" style="background:#E7DFCC"></div><div class="i"><b>CARTÓN</b><span>#E7DFCC<br>FUNDAS · PLATOS<br>BLOQUES SUAVES</span></div></div>
+    <div class="gota"><div class="c" style="background:#CFC5AC"></div><div class="i"><b>SURCO</b><span>#CFC5AC<br>HAIRLINES · BORDES<br>NUNCA PARA TEXTO</span></div></div>
+  </div>
+</section>
+
+<section class="seccion">
+  <h2><span>3 · TIPOGRAFÍA</span><span>DISPLAY · CUERPO · DATOS</span></h2>
+  <div class="tipos">
+    <div class="tipo">
+      <div class="nombre"><span>ARCHIVO · SEMIEXPANDED / EXPANDED</span><span>DISPLAY</span></div>
+      <div class="display-8">La batea<br>completa</div>
+      <div class="escala">84 · 46 · 30 · 22 · 17 PX — PESOS 900/800/700 · TRACKING −0.02EM EN DISPLAY</div>
+    </div>
+    <div class="tipo">
+      <div class="nombre"><span>ARCHIVO · REGULAR</span><span>CUERPO</span></div>
+      <div class="cuerpo"><p>Camiseta de algodón 100% con estampado frontal inspirado en la calle. Corte holgado, costura reforzada. Si dudas entre dos tallas, quédate con la más pequeña.</p></div>
+      <div class="escala">17/27 PX · MEDIDA 65–75CH · PESOS 500/700</div>
+    </div>
+    <div class="tipo" style="grid-column:1/-1">
+      <div class="nombre"><span>MARTIAN MONO</span><span>NÚMEROS DE CATÁLOGO · PRECIOS · ETIQUETAS</span></div>
+      <div class="mono-demo">
+        CAT.002 · CAMISETA-ESTAMPAD-M-NEGR · $69.900 COP<br>
+        <span style="font-size:11px; letter-spacing:.22em">NUEVO INGRESO — 8 REFERENCIAS EN LA BATEA — PAGO SEGURO</span>
+      </div>
+      <div class="escala">TABULAR SIEMPRE · IMPORTES ALINEADOS A LA DERECHA CON LÍNEA DE PUNTOS · MAYÚSCULAS CON ESPACIADO .10–.22EM</div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion">
+  <h2><span>4 · MOVIMIENTOS FIRMA</span><span>SEÑAS DE LA CASA</span></h2>
+  <div class="hatch-demo">
+    <div class="hatch lleno"></div><div class="hatch tibio"></div><div class="hatch ultima"></div><div class="hatch vacio"></div>
+    <span class="t">STOCK COMO TRAMA IMPRESA: DENSO = HAY · RALO = ÚLTIMAS · PUNTEADO GRIS = AGOTADO</span>
+  </div>
+  <div class="reglas" style="margin-top:26px">
+    <div class="regla">
+      <h3>Funda, no foto</h3>
+      <p>La tarjeta de producto es una funda cuadrada con surcos y número de catálogo; la fotografía real entra como grabado sobre la portada, nunca como relleno de un card redondeado.</p>
+    </div>
+    <div class="regla no">
+      <h3>Prohibido: radios y sombras de neón</h3>
+      <p>Sin esquinas redondeadas en botones, sin glassmorphism, sin degradados de texto. La profundidad es la del papel: bordes de 1px, tramas y un solo rojo.</p>
+    </div>
+    <div class="regla">
+      <h3>El precio es una pista</h3>
+      <p>Importes siempre monoespaciados, alineados al margen derecho con línea de puntos, como los tiempos de una cara B en un j-card.</p>
+    </div>
+    <div class="regla no">
+      <h3>Prohibido: inventar confianza</h3>
+      <p>Sin testimonios, estrellas ni contador de ventas. La confianza se muestra con el recibo troquelado y la ruta de estados del pedido.</p>
+    </div>
+  </div>
+</section>
+
+<div class="nota-maqueta">HOJA DE MARCA 00 · URBANSHOP v1 · REEMPLAZAR GRABADOS CON FOTOGRAFÍA REAL</div>
+</body>
+</html>

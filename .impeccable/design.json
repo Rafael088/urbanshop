@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T19:45:00-05:00",
+  "title": "Design System: Urbanshop",
+  "extensions": {
+    "colorMeta": {
+      "papel": { "role": "neutral", "displayName": "Papel de funda", "canonical": "#F3EFE4", "tonalRamp": ["#CFC5AC", "#DCD2BB", "#E7DFCC", "#EFE8DA", "#F3EFE4", "#F7F4EB", "#FAF8F2", "#FDFCF8"] },
+      "tinta": { "role": "neutral", "displayName": "Tinta", "canonical": "#1B1A17", "tonalRamp": ["#050504", "#151410", "#1B1A17", "#2A2823", "#3A372F", "#4A463A", "#5A5549", "#6A6457"] },
+      "prensa": { "role": "primary", "displayName": "Rojo Prensa", "canonical": "#C43D2B", "tonalRamp": ["#631D13", "#7F261A", "#9A2E20", "#C43D2B", "#D15A4B", "#DE7E72", "#EBA29A", "#F5C7C2"] },
+      "cara-b": { "role": "secondary", "displayName": "Cara B", "canonical": "#2E6B67", "tonalRamp": ["#163533", "#1F4A47", "#265C59", "#2E6B67", "#4A8783", "#6DA29F", "#93BCBA", "#BCD7D6"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headlines and page titles. Archivo 900, variable wdth 110–125." },
+      "body": { "displayName": "Body", "purpose": "Descriptions, help text and paragraphs. Archivo 500, max 65–75ch." },
+      "label": { "displayName": "Label", "purpose": "Uppercase microcopy: categories, SKUs, OBI strip." },
+      "mono": { "displayName": "Mono / Data", "purpose": "Catalog numbers, prices, order IDs, receipt lines." }
+    },
+    "shadows": [
+      { "name": "receipt", "value": "0 18px 34px rgba(27,26,23,.10)", "purpose": "Only for the order confirmation receipt." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "0.2s ease", "purpose": "Button and link hover transitions." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "560px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main call-to-action. Ink background, cream text, zero border-radius, uppercase mono label.",
+      "html": "<button class=\"ds-btn-primary\">AGREGAR A LA BOLSA</button>",
+      "css": ".ds-btn-primary { background: #1B1A17; color: #F3EFE4; border: 1px solid #1B1A17; padding: 18px 28px; font-family: 'Martian Mono', monospace; font-weight: 700; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 0; cursor: pointer; transition: background 0.2s ease; } .ds-btn-primary:hover { background: #2A2823; }"
+    },
+    {
+      "name": "Prensa Button",
+      "kind": "button",
+      "refersTo": "button-prensa",
+      "description": "Payment CTA. Pressing red background, cream text.",
+      "html": "<button class=\"ds-btn-prensa\">IR A PAGAR CON MERCADO PAGO</button>",
+      "css": ".ds-btn-prensa { background: #C43D2B; color: #F3EFE4; border: 1px solid #C43D2B; padding: 18px 28px; font-family: 'Martian Mono', monospace; font-weight: 700; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 0; cursor: pointer; transition: background 0.2s ease; } .ds-btn-prensa:hover { background: #A12F21; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Ghost/outline action on light surfaces.",
+      "html": "<button class=\"ds-btn-secondary\">SEGUIR EXPLORANDO</button>",
+      "css": ".ds-btn-secondary { background: transparent; color: #1B1A17; border: 1px solid #1B1A17; padding: 18px 28px; font-family: 'Martian Mono', monospace; font-weight: 700; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 0; cursor: pointer; transition: background 0.2s ease; } .ds-btn-secondary:hover { background: #E7DFCC; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Transparent input with ink border, zero radius.",
+      "html": "<input class=\"ds-input\" placeholder=\"Ej. Medellín\">",
+      "css": ".ds-input { background: transparent; color: #1B1A17; border: 1px solid #1B1A17; padding: 14px; font-family: 'Archivo', sans-serif; font-size: 16px; border-radius: 0; width: 100%; } .ds-input:focus-visible { outline: 2px solid #C43D2B; outline-offset: 2px; }"
+    },
+    {
+      "name": "Product Sleeve",
+      "kind": "card",
+      "refersTo": "product-sleeve",
+      "description": "Square product card inspired by a record sleeve: left spine, grooves, catalog number and price below.",
+      "html": "<a class=\"ds-sleeve\" href=\"#\"><div class=\"ds-sleeve-cover\"><span class=\"ds-sleeve-spine\">CAMISETAS</span><span class=\"ds-sleeve-title\">OVERSIZE<br>BÁSICA</span></div><div class=\"ds-sleeve-meta\"><span>CAT.001</span><span>$59.900</span></div><div class=\"ds-sleeve-hatch\"></div></a>",
+      "css": ".ds-sleeve { display: block; color: #1B1A17; text-decoration: none; } .ds-sleeve-cover { aspect-ratio: 1 / 1; position: relative; background: repeating-radial-gradient(circle at 50% 50%, rgba(27,26,23,.05) 0 1px, transparent 1px 7px), #E7DFCC; border: 1px solid #CFC5AC; display: grid; place-items: center; overflow: hidden; } .ds-sleeve-spine { position: absolute; left: 0; top: 0; width: 34px; height: 100%; background: #2E6B67; display: flex; align-items: center; justify-content: center; writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Martian Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: #F3EFE4; } .ds-sleeve-title { font-family: 'Archivo', sans-serif; font-weight: 900; font-variation-settings: 'wdth' 125; font-size: 30px; line-height: 0.96; text-align: center; text-transform: uppercase; padding: 0 18px; } .ds-sleeve-meta { display: flex; justify-content: space-between; padding-top: 12px; font-family: 'Martian Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #46413A; } .ds-sleeve-meta span:last-child { font-weight: 700; font-size: 15px; } .ds-sleeve-hatch { height: 10px; border: 1px solid #1B1A17; margin-top: 8px; background: repeating-linear-gradient(45deg, #1B1A17 0 2px, transparent 2px 5px); }"
+    },
+    {
+      "name": "Category Spine",
+      "kind": "nav",
+      "refersTo": "category-lomo",
+      "description": "Category block styled like a record spine; alternating light/dark surfaces.",
+      "html": "<div class=\"ds-spine\">CAMISETAS<span>2 REFERENCIAS</span></div>",
+      "css": ".ds-spine { min-height: 92px; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #CFC5AC; background: #F3EFE4; font-family: 'Archivo', sans-serif; font-weight: 800; font-variation-settings: 'wdth' 112; font-size: 19px; letter-spacing: -0.01em; text-transform: uppercase; } .ds-spine span { font-family: 'Martian Mono', monospace; font-size: 11px; font-weight: 500; color: #46413A; letter-spacing: 0.1em; }"
+    },
+    {
+      "name": "Receipt",
+      "kind": "custom",
+      "refersTo": "receipt",
+      "description": "Perforated order receipt with dotted lines and order-status route.",
+      "html": "<article class=\"ds-receipt\"><header><b>URBANSHOP</b><span>RECIBO #1042</span></header><div class=\"ds-receipt-row\"><span>Camiseta Estampada Ciudad · ×2</span><span>$139.800</span></div><div class=\"ds-receipt-total\"><span>TOTAL PAGADO</span><span>$324.500</span></div></article>",
+      "css": ".ds-receipt { width: 560px; max-width: 100%; background: #F3EFE4; border: 1px solid #1B1A17; padding: 30px 34px 0; box-shadow: 0 18px 34px rgba(27,26,23,.10); } .ds-receipt::after { content: ''; display: block; margin: 0 -34px; height: 14px; margin-top: 26px; background: radial-gradient(circle at 7px 14px, transparent 7px, #F3EFE4 7.5px) repeat-x; background-size: 14px 14px; } .ds-receipt header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #1B1A17; padding-bottom: 16px; font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 18px; } .ds-receipt header span { font-family: 'Martian Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #46413A; } .ds-receipt-row { display: flex; justify-content: space-between; font-family: 'Martian Mono', monospace; font-size: 13px; padding: 12px 0; border-bottom: 1px dashed #CFC5AC; } .ds-receipt-total { display: flex; justify-content: space-between; font-weight: 800; font-size: 17px; padding: 18px 0 6px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "La tienda de discos de la ropa urbana",
+    "overview": "Urbanshop adopta el vocabulario gráfico de una tienda de discos colombiana: fundas de vinilo, lomos apilados, etiquetas troqueladas y números de catálogo impresos. El producto es el protagonista; la interfaz se limita a organizar la colección como una batea ordenada y terminar la compra con un recibo troquelado.",
+    "keyCharacteristics": ["Grid de fundas cuadradas", "Tipografía display condensada + mono para datos", "Stock como trama impresa", "Formas angulares con radios cero", "Importes con línea de puntos a la derecha"],
+    "rules": [
+      { "name": "The One Pressing Rule", "body": "El rojo #C43D2B es el único color que grita. Aparece solo en CTA de pago, franja OBI, alertas de stock y estados activos.", "section": "colors" },
+      { "name": "The Catalog Number Rule", "body": "Todo producto lleva un número de catálogo visible en Martian Mono; los precios se alinean a la derecha con línea de puntos.", "section": "typography" },
+      { "name": "The Paper Layer Rule", "body": "La profundidad se resuelve con tonos de papel y bordes, nunca con glassmorphism, blur decorativo o sombras de bloque duro.", "section": "elevation" }
+    ],
+    "dos": [
+      "Usar el número de catálogo visible y precios tabulares a la derecha en cada ficha.",
+      "Representar el stock como trama impresa antes que como un badge.",
+      "Mantener botones y inputs cuadrados; el único redondeo permitido es el sello de marca y los puntos de estado.",
+      "Usar el rojo prensa con contención.",
+      "Reservar aire alrededor del recibo de confirmación."
+    ],
+    "donts": [
+      "Usar esquinas redondeadas por defecto en tarjetas, botones o inputs.",
+      "Usar gradientes de texto, glassmorphism o sombras duras de decoración.",
+      "Inventar testimonios, estrellas de valoración o contadores de ventas.",
+      "Usar el mono para textos largos.",
+      "Aplicar el rojo como fondo de áreas grandes."
+    ]
+  }
+}

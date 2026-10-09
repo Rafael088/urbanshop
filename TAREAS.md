@@ -26,7 +26,7 @@ Reemplaza `[Nombre]` por el estudiante asignado. Marca con `[x]` cuando el PR qu
 **Semana 1**
 - [x] Prisma client singleton (ya hecho)
 - [x] Endpoint `GET /api/productos` (ejemplo ya hecho)
-- [ ] Endpoint `GET /api/productos/[id]`
+- [x] Endpoint `GET /api/productos/[id]`
 
 **Semana 2**
 - [ ] Endpoint `POST /api/orders` (crear orden)

@@ -35,7 +35,7 @@ Reemplaza `[Nombre]` por el estudiante asignado. Marca con `[x]` cuando el PR qu
 
 **Semana 3**
 - [x] Reducir stock después del pago
-- [ ] Integración con Resend (email de confirmación) en `src/lib/email.ts`
+- [x] Integración con Resend (email de confirmación) en `src/lib/email.ts`
 - [ ] Validación de inputs con Zod
 
 ## Testers — [Nombre] · guía: [docs/GUIA-TESTERS.md](docs/GUIA-TESTERS.md)

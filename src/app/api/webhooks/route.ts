@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import { MercadoPagoConfig, Payment, WebhookSignatureValidator } from 'mercadopago';
 
-import type { IApiResponse } from '@/types';
+import type { IApiResponse, IOrden } from '@/types';
 import { prisma } from '@/lib/prisma';
 import { reducirStockItems } from '@/lib/stock';
+import { enviarEmailConfirmacion } from '@/lib/email';
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN ?? '',
@@ -53,6 +54,17 @@ async function actualizarOrdenPorPago(paymentId: string) {
 
   if (estado === 'PAGADA') {
     await reducirStockItems(orden.items);
+    const ordenParaEmail: IOrden = {
+      nombre: orden.nombre,
+      email: orden.email,
+      telefono: orden.telefono,
+      direccion: orden.direccion,
+      ciudad: orden.ciudad,
+      departamento: orden.departamento,
+      codigoPostal: orden.codigoPostal ?? undefined,
+      items: orden.items,
+    };
+    await enviarEmailConfirmacion(ordenParaEmail, orden.items);
   }
 
   return prisma.orden.update({

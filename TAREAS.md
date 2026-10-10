@@ -30,7 +30,7 @@ Reemplaza `[Nombre]` por el estudiante asignado. Marca con `[x]` cuando el PR qu
 
 **Semana 2**
 - [x] Endpoint `POST /api/orders` (crear orden)
-- [ ] Endpoint `POST /api/mercado-pago` (crear preferencia) + `src/lib/mercado-pago.ts`
+- [x] Endpoint `POST /api/mercado-pago` (crear preferencia) + `src/lib/mercado-pago.ts`
 - [ ] Endpoint `POST /api/webhooks` (webhook de MP)
 
 **Semana 3**

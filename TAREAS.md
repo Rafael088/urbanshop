@@ -26,16 +26,16 @@ Reemplaza `[Nombre]` por el estudiante asignado. Marca con `[x]` cuando el PR qu
 **Semana 1**
 - [x] Prisma client singleton (ya hecho)
 - [x] Endpoint `GET /api/productos` (ejemplo ya hecho)
-- [ ] Endpoint `GET /api/productos/[id]`
+- [x] Endpoint `GET /api/productos/[id]`
 
 **Semana 2**
-- [ ] Endpoint `POST /api/orders` (crear orden)
-- [ ] Endpoint `POST /api/mercado-pago` (crear preferencia) + `src/lib/mercado-pago.ts`
-- [ ] Endpoint `POST /api/webhooks` (webhook de MP)
+- [x] Endpoint `POST /api/orders` (crear orden)
+- [x] Endpoint `POST /api/mercado-pago` (crear preferencia) + `src/lib/mercado-pago.ts`
+- [x] Endpoint `POST /api/webhooks` (webhook de MP)
 
 **Semana 3**
-- [ ] Reducir stock después del pago
-- [ ] Integración con Resend (email de confirmación) en `src/lib/email.ts`
+- [x] Reducir stock después del pago
+- [x] Integración con Resend (email de confirmación) en `src/lib/email.ts`
 - [ ] Validación de inputs con Zod
 
 ## Testers — [Nombre] · guía: [docs/GUIA-TESTERS.md](docs/GUIA-TESTERS.md)

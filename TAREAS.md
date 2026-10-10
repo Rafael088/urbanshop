@@ -6,7 +6,7 @@ Reemplaza `[Nombre]` por el estudiante asignado. Marca con `[x]` cuando el PR qu
 
 **Semana 1**
 - [x] Componente `ProductCard.tsx` (ejemplo ya hecho)
-- [ ] Componente `ProductGrid.tsx`
+- [x] Componente `ProductGrid.tsx` (PR #2 mergeado)
 - [ ] Página `/` (home con grid de productos)
 - [ ] Página `/productos/[id]` (detalle con selector de variante)
 

@@ -3,6 +3,7 @@ import { MercadoPagoConfig, Payment, WebhookSignatureValidator } from 'mercadopa
 
 import type { IApiResponse } from '@/types';
 import { prisma } from '@/lib/prisma';
+import { reducirStockItems } from '@/lib/stock';
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN ?? '',
@@ -42,15 +43,24 @@ async function actualizarOrdenPorPago(paymentId: string) {
   const externalRef = (pago as unknown as { external_reference: string }).external_reference;
   const ordenId = Number(externalRef.replace('orden-', ''));
 
-  const orden = await prisma.orden.findFirst({ where: { id: ordenId } });
+  const orden = await prisma.orden.findFirst({
+    where: { id: ordenId },
+    include: { items: true },
+  });
   if (!orden) return null;
+
+  const estado = mapearEstadoPago(pago.status);
+
+  if (estado === 'PAGADA') {
+    await reducirStockItems(orden.items);
+  }
 
   return prisma.orden.update({
     where: { id: orden.id },
     data: {
       mpPaymentId: paymentId,
       mpStatus: pago.status,
-      estado: mapearEstadoPago(pago.status),
+      estado,
     },
   });
 }

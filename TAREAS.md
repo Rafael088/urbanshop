@@ -34,7 +34,7 @@ Reemplaza `[Nombre]` por el estudiante asignado. Marca con `[x]` cuando el PR qu
 - [x] Endpoint `POST /api/webhooks` (webhook de MP)
 
 **Semana 3**
-- [ ] Reducir stock después del pago
+- [x] Reducir stock después del pago
 - [ ] Integración con Resend (email de confirmación) en `src/lib/email.ts`
 - [ ] Validación de inputs con Zod
 

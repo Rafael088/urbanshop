@@ -10,6 +10,16 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Paleta Urbanshop (ver DESIGN.md): papel de funda de vinilo + tinta de imprenta */
+  --color-papel: #f3efe4;
+  --color-papel-deriva: #eaf0e7;
+  --color-carton: #e7dfcc;
+  --color-surco: #cfc5ac;
+  --color-tinta: #1b1a17;
+  --color-tinta-suave: #46413a;
+  --color-prensa: #c43d2b;
+  --color-cara-b: #2e6b67;
 }
 
 @media (prefers-color-scheme: dark) {

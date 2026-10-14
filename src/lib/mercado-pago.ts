@@ -24,7 +24,7 @@ interface PreferenceItem {
 interface PreferencePayer {
   name: string;
   email: string;
-  phone?: { string: string };
+  phone?: { number: string };
   address?: {
     street_name: string;
     zip_code: string;
@@ -51,7 +51,7 @@ function construirPayer(orden: IOrden): PreferencePayer {
   return {
     name: orden.nombre,
     email: orden.email,
-    phone: { string: orden.telefono },
+    phone: { number: orden.telefono },
     address: {
       street_name: orden.direccion,
       zip_code: orden.codigoPostal ?? '',

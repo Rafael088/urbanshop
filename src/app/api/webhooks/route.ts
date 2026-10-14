@@ -11,21 +11,19 @@ const client = new MercadoPagoConfig({
   options: { timeout: 5000 },
 });
 
-const validator = new WebhookSignatureValidator();
-
 interface WebhookPayload {
   action: string;
   type: string;
   data: { id: string };
 }
 
-function verificarFirma(req: Request, rawBody: string): boolean {
+function verificarFirma(req: Request): boolean {
   try {
-    validator.validate({
+    WebhookSignatureValidator.validate({
       xSignature: req.headers.get('x-signature'),
       xRequestId: req.headers.get('x-request-id'),
-      secretSignature: process.env.MERCADO_PAGO_WEBHOOK_SECRET ?? '',
-      rawBody,
+      dataId: new URL(req.url).searchParams.get('data.id'),
+      secret: process.env.MERCADO_PAGO_WEBHOOK_SECRET ?? '',
     });
     return true;
   } catch {
@@ -50,7 +48,7 @@ async function actualizarOrdenPorPago(paymentId: string) {
   });
   if (!orden) return null;
 
-  const estado = mapearEstadoPago(pago.status);
+  const estado = mapearEstadoPago(pago.status ?? '');
 
   if (estado === 'PAGADA') {
     await reducirStockItems(orden.items);
@@ -81,7 +79,7 @@ export async function POST(req: Request) {
   try {
     const rawBody = await req.text();
 
-    if (!verificarFirma(req, rawBody)) {
+    if (!verificarFirma(req)) {
       return NextResponse.json<IApiResponse<null>>(
         { data: null, error: 'Firma inválida', message: 'No se pudo verificar la autenticidad del webhook' },
         { status: 401 }

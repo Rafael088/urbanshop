@@ -42,7 +42,7 @@ Reemplaza `[Nombre]` por el estudiante asignado. Marca con `[x]` cuando el PR qu
 
 **Semana 1**
 - [x] Configurar Jest y Testing Library (ya hecho)
-- [ ] Tests unitarios de `src/lib/cart.ts`
+- [x] Tests unitarios de `src/lib/cart.ts`
 - [ ] Tests de validación de formularios
 
 **Semana 2**

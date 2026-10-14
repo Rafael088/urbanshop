@@ -53,7 +53,7 @@ export async function POST(req: Request) {
 
     const validacion = crearPreferenciaSchema.safeParse(body);
     if (!validacion.success) {
-      return respuestaError('Datos inválidos', validacion.error.errors[0].message);
+      return respuestaError('Datos inválidos', validacion.error.issues[0].message);
     }
 
     const preferencia = await generarPreferenciaMP(validacion.data.orden);

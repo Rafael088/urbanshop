@@ -67,7 +67,7 @@ export async function POST(req: Request) {
 
     const validacion = crearOrdenSchema.safeParse(body);
     if (!validacion.success) {
-      return respuestaError('Datos inválidos', validacion.error.errors[0].message);
+      return respuestaError('Datos inválidos', validacion.error.issues[0].message);
     }
 
     const ordenData = validacion.data as IOrden;

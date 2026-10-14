@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { GrupoOpciones } from '@/components/GrupoOpciones';
+import { VariantSelector } from '@/components/VariantSelector';
 import type { IProducto, IVariante } from '@/types';
 import { formatearPrecio } from '@/lib/format';
 
@@ -63,17 +63,18 @@ export function FichaProducto({
         </div>
         <p className="text-gray-600">{producto.descripcion}</p>
         <ListaTags tags={producto.tags} />
-        <GrupoOpciones
+        <VariantSelector
           etiqueta="Talla"
           opciones={obtenerOpciones(producto.variantes, 'talla')}
           seleccion={talla}
           onSeleccionar={onTalla}
         />
-        <GrupoOpciones
+        <VariantSelector
           etiqueta="Color"
           opciones={obtenerOpciones(producto.variantes, 'color')}
           seleccion={color}
           onSeleccionar={onColor}
+          mostrarSwatches
         />
         {variante && (
           <p

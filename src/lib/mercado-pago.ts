@@ -68,23 +68,52 @@ function construirBackUrls(): PreferenceBackUrls {
   };
 }
 
-export async function crearPreferencia(orden: IOrden, nombreProducto: string) {
+// Por qué: Mercado Pago descarta las URLs de localhost como inválidas y, como
+// auto_return exige back_urls.success válida, en local la preferencia truena.
+function esUrlLocal(url: string): boolean {
+  return /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?(\/|$)/.test(url);
+}
+
+interface PreferenceBody {
+  items: PreferenceItem[];
+  payer: PreferencePayer;
+  back_urls: PreferenceBackUrls;
+  auto_return?: 'approved';
+  external_reference: string;
+  statement_descriptor: string;
+}
+
+function construirBody(
+  items: PreferenceItem[],
+  payer: PreferencePayer,
+  backUrls: PreferenceBackUrls,
+  ordenId: number
+): PreferenceBody {
+  const body: PreferenceBody = {
+    items,
+    payer,
+    back_urls: backUrls,
+    external_reference: `orden-${ordenId}`,
+    statement_descriptor: 'URBANSHOP',
+  };
+
+  if (!esUrlLocal(backUrls.success)) body.auto_return = 'approved';
+
+  return body;
+}
+
+export async function crearPreferencia(
+  orden: IOrden,
+  nombreProducto: string,
+  ordenId: number
+) {
   const preference = new Preference(client);
 
   const items = construirItems(orden.items, nombreProducto);
   const payer = construirPayer(orden);
-  const backUrls = construirBackUrls();
+  const body = construirBody(items, payer, construirBackUrls(), ordenId);
 
-  const resultado = await preference.create({
-    body: {
-      items,
-      payer,
-      back_urls: backUrls,
-      auto_return: 'approved',
-      external_reference: `orden-${Date.now()}`,
-      statement_descriptor: 'URBANSHOP',
-    },
-  });
+  const resultado = await preference.create({ body });
 
   return {
     preferenceId: resultado.id,

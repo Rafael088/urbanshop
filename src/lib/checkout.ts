@@ -5,6 +5,7 @@ import type {
   ICarritoItem,
   IDatosEnvio,
   IOrden,
+  IOrdenCreada,
   IPreferenciaPago,
   IResumenCheckout,
 } from '@/types';
@@ -92,9 +93,14 @@ async function pedirJson<T>(ruta: string, cuerpo: unknown): Promise<T> {
 export async function iniciarPago(orden: IOrden): Promise<string> {
   // Por qué: la orden se registra antes de pagar para que el webhook de
   // Mercado Pago pueda marcarla como pagada cuando el pago se confirme.
-  await pedirJson<unknown>('/api/orders', orden);
+  const ordenCreada = await pedirJson<IOrdenCreada>('/api/orders', orden);
 
-  const preferencia = await pedirJson<IPreferenciaPago>('/api/mercado-pago', { orden });
+  // Por qué: el id real viaja a la preferencia como external_reference; si se
+  // pierde, el webhook no sabe a qué orden asignar el pago (Number('...') = NaN).
+  const preferencia = await pedirJson<IPreferenciaPago>('/api/mercado-pago', {
+    orden,
+    ordenId: ordenCreada.id,
+  });
   const url = elegirUrlPreferencia(preferencia);
 
   if (!url) throw new Error('Mercado Pago no devolvió el enlace de pago');

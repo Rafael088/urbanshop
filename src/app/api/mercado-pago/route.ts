@@ -13,6 +13,9 @@ const itemSchema = z.object({
 });
 
 const crearPreferenciaSchema = z.object({
+  // Por qué: el id real de la orden se guarda como external_reference para que
+  // el webhook de Mercado Pago sepa qué orden actualizar cuando llega el pago.
+  ordenId: z.number().int().positive(),
   orden: z.object({
     nombre: z.string().min(1, 'El nombre es requerido').max(100),
     email: z.string().email('Email inválido'),
@@ -34,10 +37,10 @@ async function obtenerNombresProductos(orden: IOrden): Promise<Map<number, strin
   return new Map(productos.map((p) => [p.id, p.nombre]));
 }
 
-async function generarPreferenciaMP(orden: IOrden) {
+async function generarPreferenciaMP(orden: IOrden, ordenId: number) {
   const nombres = await obtenerNombresProductos(orden);
   const nombreProducto = nombres.get(orden.items[0].productoId) ?? 'Producto';
-  return crearPreferencia(orden, nombreProducto);
+  return crearPreferencia(orden, nombreProducto, ordenId);
 }
 
 function respuestaError(mensaje: string, detalle?: string) {
@@ -56,7 +59,7 @@ export async function POST(req: Request) {
       return respuestaError('Datos inválidos', validacion.error.issues[0].message);
     }
 
-    const preferencia = await generarPreferenciaMP(validacion.data.orden);
+    const preferencia = await generarPreferenciaMP(validacion.data.orden, validacion.data.ordenId);
 
     return NextResponse.json<IApiResponse<typeof preferencia>>({
       data: preferencia,

@@ -3,6 +3,7 @@ import {
   construirOrden,
   datosEnvioSchema,
   elegirUrlPreferencia,
+  iniciarPago,
   mapearErrores,
 } from '@/lib/checkout';
 import type { ICarritoItem, IDatosEnvio } from '@/types';
@@ -127,5 +128,69 @@ describe('elegirUrlPreferencia', () => {
     });
 
     expect(url).toBe('https://mp/prod');
+  });
+});
+
+interface LlamadaFetch {
+  ruta: string;
+  cuerpo: unknown;
+}
+
+describe('iniciarPago', () => {
+  const orden = construirOrden(datosValidos, [crearItem()]);
+  const fetchOriginal = global.fetch;
+
+  function espiarFetch(respuestas: Record<string, unknown>): LlamadaFetch[] {
+    const llamadas: LlamadaFetch[] = [];
+
+    (global.fetch as jest.Mock).mockImplementation(
+      async (ruta: string, init?: { body?: string }): Promise<unknown> => {
+        llamadas.push({ ruta, cuerpo: init?.body ? JSON.parse(init.body) : null });
+        return { ok: true, json: async () => ({ data: respuestas[ruta], error: null, message: 'ok' }) };
+      }
+    );
+
+    return llamadas;
+  }
+
+  beforeEach(() => {
+    global.fetch = jest.fn() as unknown as typeof fetch;
+  });
+
+  afterEach(() => {
+    global.fetch = fetchOriginal;
+  });
+
+  it('debe registrar la orden y enviar su id como ordenId a la preferencia', async () => {
+    const llamadas = espiarFetch({
+      '/api/orders': { id: 42 },
+      '/api/mercado-pago': { preferenceId: 'p1', initPoint: 'https://mp/prod', sandboxInitPoint: null },
+    });
+
+    const url = await iniciarPago(orden);
+
+    expect(url).toBe('https://mp/prod');
+    expect(llamadas.map((llamada) => llamada.ruta)).toEqual(['/api/orders', '/api/mercado-pago']);
+    expect(llamadas[1].cuerpo).toMatchObject({ ordenId: 42 });
+  });
+
+  it('debe avisar cuando Mercado Pago no devuelve enlace de pago', async () => {
+    espiarFetch({
+      '/api/orders': { id: 7 },
+      '/api/mercado-pago': { preferenceId: 'p2', initPoint: null, sandboxInitPoint: null },
+    });
+
+    await expect(iniciarPago(orden)).rejects.toThrow('Mercado Pago no devolvió el enlace de pago');
+  });
+
+  it('debe propagar el mensaje de error del backend', async () => {
+    (global.fetch as jest.Mock).mockImplementation(
+      async (): Promise<unknown> => ({
+        ok: false,
+        json: async () => ({ data: null, error: 'Datos inválidos', message: 'Datos inválidos' }),
+      })
+    );
+
+    await expect(iniciarPago(orden)).rejects.toThrow('Datos inválidos');
   });
 });

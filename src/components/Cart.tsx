@@ -31,7 +31,7 @@ export function Cart() {
           href="/"
           className="mt-6 inline-block bg-tinta px-6 py-3 font-semibold text-papel transition-colors hover:bg-tinta-suave"
         >
-          Ver la batea
+          Ver el catálogo
         </Link>
       </div>
     );

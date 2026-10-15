@@ -21,7 +21,7 @@ export default async function Home() {
             <p className="font-mono text-xs tracking-[0.16em] text-tinta-suave uppercase">
               Catálogo Urbanshop
             </p>
-            <h1 className="text-4xl font-black md:text-5xl">La batea completa</h1>
+            <h1 className="text-4xl font-black md:text-5xl">Catálogo completo</h1>
             <p className="font-mono text-xs tracking-[0.16em] text-tinta-suave uppercase">
               Mostrando {productos.length} referencias · Orden: novedad ↓
             </p>

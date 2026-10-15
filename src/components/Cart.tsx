@@ -63,6 +63,15 @@ export function Cart() {
             />
           ))}
         </ul>
+
+        <div className="mt-8">
+          <Link
+            href="/"
+            className="inline-block border border-tinta px-6 py-3 font-semibold text-tinta transition-colors hover:bg-tinta hover:text-papel"
+          >
+            Seguir comprando
+          </Link>
+        </div>
       </div>
 
       <CartResumen items={items} />

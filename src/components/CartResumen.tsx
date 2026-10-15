@@ -1,23 +1,19 @@
 'use client';
 
+import Link from 'next/link';
+
 import type { ICarritoItem } from '@/types';
 import { formatearPrecio } from '@/lib/format';
+import { calcularTotales, UMBRAL_ENVIO_GRATIS } from '@/lib/checkout';
 
 interface CartResumenProps {
   items: ICarritoItem[];
+  // En /checkout la acción de pago vive dentro del formulario, no aquí
+  mostrarAccion?: boolean;
 }
 
-const UMBRAL_ENVIO_GRATIS = 200000;
-const COSTO_ENVIO = 15000;
-
-function calcularSubtotal(items: ICarritoItem[]): number {
-  return items.reduce((total, item) => total + item.precio * item.cantidad, 0);
-}
-
-export function CartResumen({ items }: CartResumenProps) {
-  const subtotal = calcularSubtotal(items);
-  const envio = subtotal >= UMBRAL_ENVIO_GRATIS ? 0 : COSTO_ENVIO;
-  const total = subtotal + envio;
+export function CartResumen({ items, mostrarAccion = true }: CartResumenProps) {
+  const { subtotal, envio, total } = calcularTotales(items);
 
   return (
     <aside className="border border-tinta bg-carton/40 p-6">
@@ -49,12 +45,14 @@ export function CartResumen({ items }: CartResumenProps) {
         </p>
       )}
 
-      <button
-        type="button"
-        className="mt-6 w-full bg-tinta px-6 py-3 font-semibold text-papel transition-colors hover:bg-tinta-suave"
-      >
-        Ir a pagar
-      </button>
+      {mostrarAccion && (
+        <Link
+          href="/checkout"
+          className="mt-6 block w-full bg-tinta px-6 py-3 text-center font-semibold text-papel transition-colors hover:bg-tinta-suave"
+        >
+          Ir a pagar
+        </Link>
+      )}
 
       <p className="mt-3 text-center font-mono text-xs text-tinta-suave">
         Pago seguro con Mercado Pago

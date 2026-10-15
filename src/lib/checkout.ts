@@ -1,0 +1,102 @@
+import { z } from 'zod';
+
+import type {
+  IApiResponse,
+  ICarritoItem,
+  IDatosEnvio,
+  IOrden,
+  IPreferenciaPago,
+  IResumenCheckout,
+} from '@/types';
+
+// Por qué: el backend cobra solo los items (POST /api/orders suma precio*cantidad y
+// la preferencia de Mercado Pago se arma con los mismos items), así que el envío es
+// informativo. Si el backend empieza a cobrarlo, estos son los únicos lugares a tocar.
+export const UMBRAL_ENVIO_GRATIS = 200000;
+export const COSTO_ENVIO = 15000;
+
+export const datosEnvioSchema = z.object({
+  nombre: z.string().trim().min(3, 'Escribe tu nombre completo').max(100),
+  email: z.string().trim().email('Email inválido'),
+  telefono: z.string().trim().min(7, 'Teléfono demasiado corto').max(20),
+  direccion: z.string().trim().min(5, 'Escribe tu dirección completa').max(200),
+  ciudad: z.string().trim().min(2, 'Ciudad requerida').max(100),
+  departamento: z.string().trim().min(2, 'Departamento requerido').max(100),
+  codigoPostal: z.string().trim().max(20),
+});
+
+export function calcularTotales(items: ICarritoItem[]): IResumenCheckout {
+  const subtotal = items.reduce((total, item) => total + item.precio * item.cantidad, 0);
+  const envio = subtotal === 0 || subtotal >= UMBRAL_ENVIO_GRATIS ? 0 : COSTO_ENVIO;
+
+  return {
+    subtotal,
+    envio,
+    total: subtotal + envio,
+    faltaParaEnvioGratis: Math.max(UMBRAL_ENVIO_GRATIS - subtotal, 0),
+  };
+}
+
+export function mapearErrores(
+  issues: { path: PropertyKey[]; message: string }[]
+): Partial<Record<keyof IDatosEnvio, string>> {
+  const errores: Partial<Record<keyof IDatosEnvio, string>> = {};
+
+  for (const issue of issues) {
+    const campo = String(issue.path[0]);
+    // Por qué: el primer mensaje de cada campo es el más útil para quien llena el form
+    if (campo && !(campo in errores)) errores[campo as keyof IDatosEnvio] = issue.message;
+  }
+
+  return errores;
+}
+
+export function construirOrden(
+  datos: IDatosEnvio,
+  items: ICarritoItem[]
+): IOrden {
+  return {
+    ...datos,
+    codigoPostal: datos.codigoPostal?.trim() || undefined,
+    items: items.map((item) => ({
+      productoId: item.productoId,
+      varianteId: item.varianteId,
+      cantidad: item.cantidad,
+      precio: item.precio,
+    })),
+  };
+}
+
+export function elegirUrlPreferencia(preferencia: IPreferenciaPago): string | null {
+  // Por qué: con credenciales de prueba Mercado Pago llena sandbox_init_point;
+  // en producción se navega al init_point real.
+  return preferencia.sandboxInitPoint ?? preferencia.initPoint;
+}
+
+async function pedirJson<T>(ruta: string, cuerpo: unknown): Promise<T> {
+  const respuesta = await fetch(ruta, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(cuerpo),
+  });
+
+  const json = (await respuesta.json()) as IApiResponse<T>;
+
+  if (!respuesta.ok || json.error || !json.data) {
+    throw new Error(json.message || 'No se pudo procesar tu pedido');
+  }
+
+  return json.data;
+}
+
+export async function iniciarPago(orden: IOrden): Promise<string> {
+  // Por qué: la orden se registra antes de pagar para que el webhook de
+  // Mercado Pago pueda marcarla como pagada cuando el pago se confirme.
+  await pedirJson<unknown>('/api/orders', orden);
+
+  const preferencia = await pedirJson<IPreferenciaPago>('/api/mercado-pago', { orden });
+  const url = elegirUrlPreferencia(preferencia);
+
+  if (!url) throw new Error('Mercado Pago no devolvió el enlace de pago');
+  return url;
+}

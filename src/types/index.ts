@@ -54,6 +54,40 @@ export interface IOrden {
   items: IOrdenItem[];
 }
 
+// Datos que el cliente escribe en el formulario de checkout
+export interface IDatosEnvio {
+  nombre: string;
+  email: string;
+  telefono: string;
+  direccion: string;
+  ciudad: string;
+  departamento: string;
+  codigoPostal?: string;
+}
+
+// Desglose de costos mostrado en carrito y checkout
+export interface IResumenCheckout {
+  subtotal: number;
+  envio: number;
+  total: number;
+  faltaParaEnvioGratis: number;
+}
+
+// Respuesta mínima de POST /api/orders que usa el frontend
+export interface IOrdenCreada {
+  id: number;
+}
+
+// Errores por campo del formulario de checkout
+export type ErroresEnvio = Partial<Record<keyof IDatosEnvio, string>>;
+
+// Respuesta de POST /api/mercado-pago
+export interface IPreferenciaPago {
+  preferenceId: string | null;
+  initPoint: string | null;
+  sandboxInitPoint: string | null;
+}
+
 // Formato común de todas las respuestas de /api
 export interface IApiResponse<T> {
   data: T | null;

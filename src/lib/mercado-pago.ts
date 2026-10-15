@@ -1,5 +1,6 @@
 import { MercadoPagoConfig, Preference } from 'mercadopago';
 
+import { calcularCostoEnvio } from '@/lib/envio';
 import type { IOrden, IOrdenItem } from '@/types';
 
 const accessToken = process.env.MERCADO_PAGO_ACCESS_TOKEN;
@@ -38,13 +39,24 @@ interface PreferenceBackUrls {
 }
 
 function construirItems(items: IOrdenItem[], nombreProducto: string): PreferenceItem[] {
-  return items.map((item, index) => ({
+  const productos = items.map((item, index) => ({
     id: `${item.productoId}-${item.varianteId}`,
     title: `${nombreProducto} (Variante ${index + 1})`,
     quantity: item.cantidad,
     unit_price: item.precio,
     currency_id: 'COP',
   }));
+
+  const subtotal = items.reduce((total, item) => total + item.precio * item.cantidad, 0);
+  const costoEnvio = calcularCostoEnvio(subtotal);
+  if (costoEnvio === 0) return productos;
+
+  // Por qué: Mercado Pago no cobra envío calculado por nosotros, así que el
+  // costo viaja como un ítem más para que el total cobrado coincida con el carrito.
+  return [
+    ...productos,
+    { id: 'envio', title: 'Envío', quantity: 1, unit_price: costoEnvio, currency_id: 'COP' },
+  ];
 }
 
 function construirPayer(orden: IOrden): PreferencePayer {

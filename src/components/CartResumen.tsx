@@ -4,7 +4,8 @@ import Link from 'next/link';
 
 import type { ICarritoItem } from '@/types';
 import { formatearPrecio } from '@/lib/format';
-import { calcularTotales, UMBRAL_ENVIO_GRATIS } from '@/lib/checkout';
+import { calcularTotales } from '@/lib/checkout';
+import { UMBRAL_ENVIO_GRATIS } from '@/lib/envio';
 
 interface CartResumenProps {
   items: ICarritoItem[];

@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 import type { IApiResponse, IOrden, IOrdenItem } from '@/types';
 import { prisma } from '@/lib/prisma';
+import { calcularCostoEnvio } from '@/lib/envio';
 
 const ordenItemSchema = z.object({
   productoId: z.number().int().positive(),
@@ -26,7 +27,15 @@ function calcularTotalOrden(items: IOrdenItem[]): number {
   return items.reduce((total, item) => total + item.precio * item.cantidad, 0);
 }
 
-async function crearOrdenEnDB(ordenData: IOrden, total: number) {
+// Por qué: el envío se recalcula en el servidor a partir de los items; nunca se
+// confía en el dato del cliente para que no le quiten el envío mandando 0.
+function calcularTotalesOrden(items: IOrdenItem[]): { total: number; costoEnvio: number } {
+  const subtotal = calcularTotalOrden(items);
+  const costoEnvio = calcularCostoEnvio(subtotal);
+  return { total: subtotal + costoEnvio, costoEnvio };
+}
+
+async function crearOrdenEnDB(ordenData: IOrden, total: number, costoEnvio: number) {
   return prisma.$transaction(async (tx) => {
     return tx.orden.create({
       data: {
@@ -38,6 +47,7 @@ async function crearOrdenEnDB(ordenData: IOrden, total: number) {
         departamento: ordenData.departamento,
         codigoPostal: ordenData.codigoPostal ?? null,
         total,
+        costoEnvio,
         items: {
           create: ordenData.items.map((item) => ({
             productoId: item.productoId,
@@ -71,8 +81,8 @@ export async function POST(req: Request) {
     }
 
     const ordenData = validacion.data as IOrden;
-    const total = calcularTotalOrden(ordenData.items);
-    const orden = await crearOrdenEnDB(ordenData, total);
+    const { total, costoEnvio } = calcularTotalesOrden(ordenData.items);
+    const orden = await crearOrdenEnDB(ordenData, total, costoEnvio);
 
     return NextResponse.json<IApiResponse<typeof orden>>({
       data: orden,

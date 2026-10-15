@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { UMBRAL_ENVIO_GRATIS, calcularCostoEnvio } from '@/lib/envio';
 import type {
   IApiResponse,
   ICarritoItem,
@@ -9,12 +10,6 @@ import type {
   IPreferenciaPago,
   IResumenCheckout,
 } from '@/types';
-
-// Por qué: el backend cobra solo los items (POST /api/orders suma precio*cantidad y
-// la preferencia de Mercado Pago se arma con los mismos items), así que el envío es
-// informativo. Si el backend empieza a cobrarlo, estos son los únicos lugares a tocar.
-export const UMBRAL_ENVIO_GRATIS = 200000;
-export const COSTO_ENVIO = 15000;
 
 export const datosEnvioSchema = z.object({
   nombre: z.string().trim().min(3, 'Escribe tu nombre completo').max(100),
@@ -28,7 +23,7 @@ export const datosEnvioSchema = z.object({
 
 export function calcularTotales(items: ICarritoItem[]): IResumenCheckout {
   const subtotal = items.reduce((total, item) => total + item.precio * item.cantidad, 0);
-  const envio = subtotal === 0 || subtotal >= UMBRAL_ENVIO_GRATIS ? 0 : COSTO_ENVIO;
+  const envio = calcularCostoEnvio(subtotal);
 
   return {
     subtotal,

@@ -2,8 +2,24 @@ import type { ICarritoItem } from '@/types';
 
 const CART_KEY = 'ecommerce-cart';
 
+// Por qué: useSyncExternalStore necesita saber cuándo el "snapshop" externo
+// (localStorage) cambió. Cada escritura notifica a los suscriptores (el hook useCarrito).
+const oyentes = new Set<() => void>();
+
+export function suscribirCarrito(callback: () => void): () => void {
+  oyentes.add(callback);
+  return () => {
+    oyentes.delete(callback);
+  };
+}
+
+function notificarCambio(): void {
+  oyentes.forEach((callback) => callback());
+}
+
 function guardarCarrito(carrito: ICarritoItem[]): void {
   localStorage.setItem(CART_KEY, JSON.stringify(carrito));
+  notificarCambio();
 }
 
 function esMismoItem(item: ICarritoItem, productoId: number, varianteId: number): boolean {
@@ -52,6 +68,7 @@ export function actualizarCantidad(productoId: number, varianteId: number, canti
 
 export function limpiarCarrito(): void {
   localStorage.removeItem(CART_KEY);
+  notificarCambio();
 }
 
 export function calcularTotalCarrito(carrito: ICarritoItem[]): number {

@@ -30,7 +30,7 @@ function MensajeEstado({ titulo }: { titulo: string }) {
   return (
     <div className="py-16 text-center">
       <h1 className="text-2xl font-semibold">{titulo}</h1>
-      <Link href="/" className="mt-4 inline-block text-sm text-gray-600 underline">
+      <Link href="/" className="mt-4 inline-block text-sm text-tinta-suave underline">
         Volver a la tienda
       </Link>
     </div>
@@ -70,7 +70,7 @@ export function ProductoDetalle({ productoId }: ProductoDetalleProps) {
   }, [productoId]);
 
   if (estado === 'cargando') {
-    return <p className="py-16 text-center text-gray-500">Cargando producto…</p>;
+    return <p className="py-16 text-center text-tinta-suave">Cargando producto…</p>;
   }
 
   if (!producto) {

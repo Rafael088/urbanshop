@@ -11,7 +11,7 @@ export function SiteHeader() {
   const totalItems = items.reduce((total, item) => total + item.cantidad, 0);
 
   return (
-    <header className="sticky top-0 z-10 bg-tinta text-papel">
+    <header className="sticky top-0 z-10 bg-barra text-barra-texto">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 md:px-10">
         <Link
           href="/"
@@ -23,7 +23,7 @@ export function SiteHeader() {
           <Link
             href="/carrito"
             aria-label={`Carrito con ${totalItems} ${totalItems === 1 ? 'artículo' : 'artículos'}`}
-            className="border border-papel px-4 py-2 font-mono text-xs tracking-[0.16em] uppercase transition-colors hover:bg-papel hover:text-tinta"
+            className="border border-barra-texto px-4 py-2 font-mono text-xs tracking-[0.16em] uppercase transition-colors hover:bg-barra-texto hover:text-barra"
           >
             Carrito{totalItems > 0 ? ` (${totalItems})` : ''}
           </Link>

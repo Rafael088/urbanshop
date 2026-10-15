@@ -18,7 +18,7 @@ export function GrupoOpciones({
 
   return (
     <div>
-      <p className="mb-2 text-sm font-medium text-gray-700">{etiqueta}</p>
+      <p className="mb-2 text-sm font-medium text-tinta-suave">{etiqueta}</p>
       <div className="flex flex-wrap gap-2">
         {opciones.map((opcion) => (
           <button
@@ -27,8 +27,8 @@ export function GrupoOpciones({
             onClick={() => onSeleccionar(opcion)}
             className={`rounded border px-4 py-2 text-sm transition-colors ${
               seleccion === opcion
-                ? 'border-black bg-black text-white'
-                : 'border-gray-300 hover:border-black'
+                ? 'border-tinta bg-tinta text-papel'
+                : 'border-surco hover:border-tinta'
             }`}
           >
             {opcion}

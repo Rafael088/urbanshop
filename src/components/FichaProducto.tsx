@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { VariantSelector } from '@/components/VariantSelector';
 import type { IProducto, IVariante } from '@/types';
@@ -94,6 +95,13 @@ export function FichaProducto({
           {agotado ? 'Agotado' : 'Agregar al carrito'}
         </button>
         {agregado && variante && <p className="text-sm text-green-600">✓ Agregado al carrito</p>}
+        <Link
+          href="/carrito"
+          aria-label="Ver el carrito"
+          className="block w-full rounded-lg border border-black px-6 py-3 text-center font-semibold text-black transition-colors hover:bg-black hover:text-white"
+        >
+          Ver carrito
+        </Link>
       </div>
     </article>
   );

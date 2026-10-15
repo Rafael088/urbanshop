@@ -44,7 +44,7 @@ describe('ProductCard', () => {
 
     render(<ProductCard producto={producto} />);
 
-    const enlace = screen.getByRole('link');
+    const enlace = screen.getByRole('link', { name: /camiseta urbana/i });
     expect(enlace).toHaveAttribute('href', '/productos/7');
   });
 

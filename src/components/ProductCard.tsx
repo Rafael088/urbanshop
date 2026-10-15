@@ -10,8 +10,8 @@ interface ProductCardProps {
 
 export function ProductCard({ producto }: ProductCardProps) {
   return (
-    <Link href={`/productos/${producto.id}`}>
-      <div className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+    <div className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
+      <Link href={`/productos/${producto.id}`} className="flex-1">
         <Image
           src={producto.imagenes[0] ?? 'https://placehold.co/600x800/png?text=Sin+imagen'}
           alt={producto.nombre}
@@ -30,7 +30,7 @@ export function ProductCard({ producto }: ProductCardProps) {
             ))}
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }

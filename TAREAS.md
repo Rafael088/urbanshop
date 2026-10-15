@@ -2,24 +2,24 @@
 
 Reemplaza `[Nombre]` por el estudiante asignado. Marca con `[x]` cuando el PR quede mergeado.
 
-## Frontend — [Nombre] · guía: [docs/GUIA-FRONTEND.md](docs/GUIA-FRONTEND.md)
+## Frontend — Juan Camilo · guía: [docs/GUIA-FRONTEND.md](docs/GUIA-FRONTEND.md)
 
 **Semana 1**
 - [x] Componente `ProductCard.tsx` (ejemplo ya hecho)
 - [x] Componente `ProductGrid.tsx`
-- [ ] Página `/` (home con grid de productos)
+- [x] Página `/` (home con grid de productos)
 - [x] Página `/productos/[id]` (detalle con selector de variante)
 
 **Semana 2**
-- [ ] Componente `VariantSelector.tsx` (talla/color)
-- [ ] Componentes `Cart.tsx` y `CartItem.tsx`
-- [ ] Página `/carrito`
+- [x] Componente `VariantSelector.tsx` (talla/color)
+- [x] Componentes `Cart.tsx` y `CartItem.tsx`
+- [x] Página `/carrito`
 - [ ] Página `/checkout` (formulario)
 
 **Semana 3**
 - [ ] Integración con Mercado Pago (botón pagar, redirect)
 - [ ] Página de confirmación de pedido
-- [ ] Responsive design (mobile-first)
+- [ ] Responsive design (mobile-first) — parcial: home, producto y carrito; falta checkout y confirmación
 
 ## Backend — [Nombre] · guía: [docs/GUIA-BACKEND.md](docs/GUIA-BACKEND.md)
 
@@ -46,7 +46,7 @@ Reemplaza `[Nombre]` por el estudiante asignado. Marca con `[x]` cuando el PR qu
 - [ ] Tests de validación de formularios
 
 **Semana 2**
-- [ ] Tests de componentes (ProductCard, Cart, CheckoutForm)
+- [ ] Tests de componentes (ProductCard, Cart, CheckoutForm) — parcial: ProductCard y ProductGrid listos; faltan Cart y CheckoutForm
 - [x] Configurar Playwright (ya hecho)
 - [ ] Tests E2E del flujo básico
 

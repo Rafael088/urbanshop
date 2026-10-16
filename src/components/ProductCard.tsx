@@ -21,10 +21,10 @@ export function ProductCard({ producto }: ProductCardProps) {
         />
         <div className="p-4">
           <h3 className="font-semibold text-lg">{producto.nombre}</h3>
-          <p className="text-gray-600 text-sm mt-1">{formatearPrecio(producto.precio)}</p>
+          <p className="text-tinta-suave text-sm mt-1">{formatearPrecio(producto.precio)}</p>
           <div className="flex gap-2 mt-2">
             {producto.tags.slice(0, 2).map((tag) => (
-              <span key={tag} className="text-xs bg-gray-100 px-2 py-1 rounded">
+              <span key={tag} className="text-xs bg-carton px-2 py-1 rounded">
                 {tag}
               </span>
             ))}

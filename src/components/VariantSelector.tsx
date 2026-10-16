@@ -23,7 +23,7 @@ export function VariantSelector({
 
   return (
     <div>
-      <p className="mb-2 text-sm font-medium text-gray-700">{etiqueta}</p>
+      <p className="mb-2 text-sm font-medium text-tinta-suave">{etiqueta}</p>
       <div className="flex flex-wrap gap-2">
         {opciones.map((opcion) => {
           const activa = seleccion === opcion;
@@ -37,12 +37,12 @@ export function VariantSelector({
                 aria-pressed={activa}
                 title={opcion}
                 className={`flex h-9 w-9 items-center justify-center rounded-full border-2 transition-colors ${
-                  activa ? 'border-black' : 'border-transparent hover:border-gray-300'
+                  activa ? 'border-tinta' : 'border-transparent hover:border-surco'
                 }`}
               >
                 <span
                   className={`h-6 w-6 rounded-full ${
-                    esColorClaro(opcion) ? 'border border-gray-300' : ''
+                    esColorClaro(opcion) ? 'border border-surco' : ''
                   }`}
                   style={{ backgroundColor: obtenerHexColor(opcion) }}
                 />
@@ -58,8 +58,8 @@ export function VariantSelector({
               aria-pressed={activa}
               className={`rounded border px-4 py-2 text-sm transition-colors ${
                 activa
-                  ? 'border-black bg-black text-white'
-                  : 'border-gray-300 hover:border-black'
+                  ? 'border-tinta bg-tinta text-papel'
+                  : 'border-surco hover:border-tinta'
               }`}
             >
               {opcion}

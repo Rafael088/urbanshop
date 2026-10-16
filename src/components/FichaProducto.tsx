@@ -27,7 +27,7 @@ function ListaTags({ tags }: { tags: string[] }) {
   return (
     <div className="flex flex-wrap gap-2">
       {tags.map((tag) => (
-        <span key={tag} className="rounded bg-gray-100 px-2 py-1 text-xs">
+        <span key={tag} className="rounded bg-carton px-2 py-1 text-xs">
           {tag}
         </span>
       ))}
@@ -58,11 +58,11 @@ export function FichaProducto({
       />
       <div className="flex flex-col gap-4">
         <div>
-          <p className="text-sm text-gray-500">{producto.categoria.nombre}</p>
+          <p className="text-sm text-tinta-suave">{producto.categoria.nombre}</p>
           <h1 className="text-3xl font-bold">{producto.nombre}</h1>
-          <p className="mt-2 text-2xl text-gray-800">{formatearPrecio(producto.precio)}</p>
+          <p className="mt-2 text-2xl text-tinta">{formatearPrecio(producto.precio)}</p>
         </div>
-        <p className="text-gray-600">{producto.descripcion}</p>
+        <p className="text-tinta-suave">{producto.descripcion}</p>
         <ListaTags tags={producto.tags} />
         <VariantSelector
           etiqueta="Talla"
@@ -80,7 +80,7 @@ export function FichaProducto({
         {variante && (
           <p
             className={
-              variante.stock > 0 ? 'text-sm text-gray-600' : 'text-sm font-medium text-red-600'
+              variante.stock > 0 ? 'text-sm text-tinta-suave' : 'text-sm font-medium text-prensa'
             }
           >
             {variante.stock > 0 ? `Existencias: ${variante.stock} unidades` : 'Agotado'}
@@ -90,15 +90,17 @@ export function FichaProducto({
           type="button"
           onClick={onAgregar}
           disabled={!variante || agotado}
-          className="rounded-lg bg-black px-6 py-3 font-semibold text-white transition-colors hover:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gray-300"
+          className="rounded-lg bg-tinta px-6 py-3 font-semibold text-papel transition-colors hover:bg-tinta-suave disabled:cursor-not-allowed disabled:bg-surco disabled:text-tinta-suave"
         >
           {agotado ? 'Agotado' : 'Agregar al carrito'}
         </button>
-        {agregado && variante && <p className="text-sm text-green-600">✓ Agregado al carrito</p>}
+        {agregado && variante && (
+          <p className="text-sm text-ok">✓ Agregado al carrito</p>
+        )}
         <Link
           href="/carrito"
           aria-label="Ver el carrito"
-          className="block w-full rounded-lg border border-black px-6 py-3 text-center font-semibold text-black transition-colors hover:bg-black hover:text-white"
+          className="block w-full rounded-lg border border-tinta px-6 py-3 text-center font-semibold text-tinta transition-colors hover:bg-tinta hover:text-papel"
         >
           Ver carrito
         </Link>

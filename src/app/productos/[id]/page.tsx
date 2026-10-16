@@ -1,4 +1,12 @@
+import type { Metadata } from 'next';
+
 import { ProductoDetalle } from '@/components/ProductoDetalle';
+import { SiteFooter } from '@/components/SiteFooter';
+import { SiteHeader } from '@/components/SiteHeader';
+
+export const metadata: Metadata = {
+  title: 'Producto · Urbanshop',
+};
 
 interface ProductoPaginaProps {
   // En Next.js 16 params es un Promise y debe resolverse con await
@@ -10,8 +18,14 @@ export default async function ProductoPagina({ params }: ProductoPaginaProps) {
   const productoId = Number(id);
 
   return (
-    <main className="flex-1 p-6 md:p-10">
-      <ProductoDetalle productoId={productoId} />
-    </main>
+    <>
+      <SiteHeader />
+      <main className="flex-1 bg-papel text-tinta caret-tinta [&::selection]:bg-prensa [&::selection]:text-papel">
+        <div className="mx-auto max-w-6xl px-4 py-8 md:px-10 md:py-12">
+          <ProductoDetalle key={productoId} productoId={productoId} />
+        </div>
+      </main>
+      <SiteFooter />
+    </>
   );
 }
